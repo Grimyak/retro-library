@@ -72,6 +72,28 @@ python3 scripts/build_site.py    # -> docs/data/games.json
 `docs/img/<kind>/` to force one kind to rebuild. Serve locally with `python3 -m http.server -d docs`
 and open <http://localhost:8000> — the command starts a server but does not open a browser.
 
+### Multi-disc playlists
+
+`scripts/make_m3u.py` is a separate library-maintenance tool — it touches the ROM folders, not
+the site. It finds multi-disc games, groups them by filename with the `(Disc n)` tag removed, and
+writes one `.m3u` per set with the discs in numeric order, using CRLF endings and bare filenames
+to match the playlists already in the library.
+
+```bash
+python3 scripts/make_m3u.py                      # dry run: what is missing
+python3 scripts/make_m3u.py --write              # create them
+python3 scripts/make_m3u.py --systems saturn --write
+```
+
+It is deliberately conservative and will refuse to overwrite an existing playlist, to write one
+whose name collides with an existing ROM (that would appear twice in the frontend), or to write
+one for a set with only a single disc present. `.bin` is excluded on purpose: a multi-track rip
+ships one `.bin` per track and the `.cue` is the real entry point.
+
+A note on GameCube — ES-DE accepts `.m3u` for it, but the default emulator is the libretro Dolphin
+core, whose disc-control support is unreliable, and standalone Dolphin ignores `.m3u` entirely. Its
+sets are reported but left alone unless you ask for them explicitly.
+
 ### Notes on the source data
 
 Quirks the build handles, in case you hit them on your own library:
