@@ -72,8 +72,9 @@ python3 scripts/build_images.py  # artwork -> docs/img/**.webp (resumable)
 python3 scripts/build_site.py    # -> docs/data/games.json
 ```
 
-`build_images.py` skips files it has already converted, so re-runs are cheap; delete
-`docs/img/<kind>/` to force one kind to rebuild. Serve locally with `python3 -m http.server -d docs`
+`build_images.py` skips files it has already converted *unless the source is newer*, so re-runs
+are cheap but a re-scrape is always picked up — artwork is rewritten in place under the same
+filename, so skipping on existence alone would silently keep the old picture. Serve locally with `python3 -m http.server -d docs`
 and open <http://localhost:8000> — the command starts a server but does not open a browser.
 
 ### Multi-disc playlists

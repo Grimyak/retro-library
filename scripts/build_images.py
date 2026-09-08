@@ -19,7 +19,11 @@ def slug(s):
 
 def convert(args):
     src, dst, width, quality = args
-    if os.path.isfile(dst) and os.path.getsize(dst) > 200:
+    # Resumable, but only while the source has not changed underneath us. A
+    # re-scrape rewrites the artwork in place under the same filename, so
+    # skipping purely on existence would silently keep the old picture.
+    if (os.path.isfile(dst) and os.path.getsize(dst) > 200
+            and os.path.getmtime(dst) >= os.path.getmtime(src)):
         return dst, os.path.getsize(dst), None
     try:
         with Image.open(src) as im:
