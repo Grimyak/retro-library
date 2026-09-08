@@ -4,7 +4,7 @@ A static, browsable catalogue of a personal retro game collection — **1,651 ga
 systems**, with box art, 3D boxes, cartridge and disc scans, screenshots, title screens, logos,
 community ratings, descriptions and release metadata.
 
-**→ Live site:** _not published yet — see "Publishing" below_
+**→ Live site: <https://grimyak.github.io/retro-library/>**
 
 ## What it does
 
@@ -99,16 +99,11 @@ docs/        the site itself — this is what GitHub Pages serves
 
 ## Publishing
 
-The repo is committed locally but has no remote. To put it on GitHub with a live site:
+GitHub Pages serves `main` `/docs`. Rebuild, commit and push, and the site redeploys itself:
 
 ```bash
-gh repo create retro-library --public --source=. --remote=origin --push
-gh api -X POST repos/:owner/retro-library/pages \
-  -f 'source[branch]=main' -f 'source[path]=/docs'
+python3 scripts/build_data.py && python3 scripts/build_images.py && python3 scripts/build_site.py
+git add -A && git commit -m "Refresh catalogue" && git push
 ```
 
-That serves it at `https://<user>.github.io/retro-library/`. Swap `--public` for `--private` to
-keep it closed — GitHub Pages needs a paid plan for private repos, but the site still works by
-cloning and opening `docs/index.html`.
-
-Heads up: a public repo makes every ROM filename publicly searchable.
+Note that this repository is public, so every ROM filename in it is publicly searchable.
