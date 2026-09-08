@@ -94,6 +94,39 @@ A note on GameCube — ES-DE accepts `.m3u` for it, but the default emulator is 
 core, whose disc-control support is unreliable, and standalone Dolphin ignores `.m3u` entirely. Its
 sets are reported but left alone unless you ask for them explicitly.
 
+### Multi-disc folder layout
+
+`scripts/convert_multidisc.py` converts multi-disc games to ES-DE's *directories interpreted as
+files* layout, so a game shows up once instead of once per disc:
+
+```
+psx/Xenogears (USA).m3u/                          <- one entry in ES-DE
+psx/Xenogears (USA).m3u/Xenogears (USA) (Disc 1).chd
+psx/Xenogears (USA).m3u/Xenogears (USA) (Disc 2).chd
+psx/Xenogears (USA).m3u/Xenogears (USA).m3u       <- what gets launched
+```
+
+It also deletes redundant single-disc playlists, which do nothing for disc swapping and merely
+double the entry. Running it took PS1 from 433 entries to 200, Saturn 62 to 52 and Dreamcast 41
+to 32.
+
+```bash
+python3 scripts/convert_multidisc.py             # preview
+python3 scripts/convert_multidisc.py --write     # apply
+```
+
+Two findings are baked into the script because they are easy to get wrong:
+
+- **Media keeps the extension.** ES-DE resolves media through `getDisplayName()`, which is
+  `getStem(path)` — and `getStem()` skips extension-stripping when the path is a directory. So the
+  folder `Xenogears (USA).m3u` looks for `covers/Xenogears (USA).m3u.png`, extension included. The
+  script hardlinks existing artwork to that name, so **no re-scraping and no API calls**.
+- **Disc tags are not always last.** `Grandia (Japan) (Disc 1) [T-En by ...].chd` puts it in the
+  middle, so media is located from the real disc filenames rather than a reconstructed name.
+
+Metadata is migrated onto the surviving entry before anything is deleted — some games carry their
+scrape only on the `.m3u` entry — and gamelists are backed up first.
+
 ### Notes on the source data
 
 Quirks the build handles, in case you hit them on your own library:
