@@ -3,13 +3,6 @@
   const $ = s => document.querySelector(s);
   const PAGE = 120;
 
-  const SYS_COLOR = {
-    nes:"#e05263", snes:"#8b7fd4", n64:"#4bb96f", gb:"#8fae5a", gbc:"#d98cc4",
-    gba:"#6f7fd8", nds:"#5fbcd3", mastersystem:"#d08a4a", megadrive:"#4f8fe0",
-    saturn:"#9b8ce8", psx:"#c2c8d4", ps2:"#5f8fd6", pcengine:"#e07a4a",
-    pcenginecd:"#e0a04a", neogeo:"#e0574a",
-  };
-
   const store = {
     get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch {} },
@@ -24,6 +17,8 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   const gb  = b => b >= 2**30 ? (b/2**30).toFixed(1)+" GB" : Math.max(1,Math.round(b/2**20))+" MB";
   const num = n => n.toLocaleString("en-US");
+  // 0-100 rating as a 20-cell block meter, e.g. ██████████████████░░
+  const meter = r => { const f = Math.round(r / 5); return "█".repeat(f) + "░".repeat(20 - f); };
 
   fetch("data/games.json")
     .then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)))
@@ -44,8 +39,7 @@
     ].map(([k,v]) => `<div><dd>${v}</dd><dt>${k}</dt></div>`).join("");
 
     $("#systems").innerHTML = DATA.systems.map(s =>
-      `<button class="pill" data-sys="${s.id}" aria-pressed="false"
-        style="--sys:${SYS_COLOR[s.id]||"#7a8496"}">${esc(s.short)} <span class="n">${s.n}</span></button>`
+      `<button class="pill" data-sys="${s.id}" aria-pressed="false">${esc(s.short)} <span class="n">${s.n}</span></button>`
     ).join("");
     $("#genre").insertAdjacentHTML("beforeend",
       DATA.genres.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join(""));
@@ -139,14 +133,13 @@
   }
 
   function card(g) {
-    const col = SYS_COLOR[g.s] || "#7a8496";
     // fall back to the other artwork style when the preferred one is missing
     const src = state.view === "box3d" ? (g.b || g.c) : (g.c || g.b);
     const art = src
       ? `<img src="img/${src}" alt="" loading="lazy" decoding="async">`
       : `<span class="noart">No artwork</span>`;
-    return `<button class="card" data-i="${g._i}" style="--sys:${col}">
-      <span class="art"><span class="sysdot"></span>${g.r ? `<span class="badge">${g.r}</span>` : ""}${art}</span>
+    return `<button class="card" data-i="${g._i}">
+      <span class="art">${g.r ? `<span class="badge">${g.r}</span>` : ""}${art}</span>
       <span class="meta">
         <span class="name">${esc(g.t)}</span>
         <span class="sub"><span class="sys">${esc(SYS[g.s].short)}</span>${g.y ? " · " + g.y : ""}</span>
@@ -157,7 +150,6 @@
   function open(i, fromHash) {
     const g = DATA.games[i]; if (!g) return;
     lastFocus = document.activeElement;
-    const col = SYS_COLOR[g.s] || "#7a8496";
     const facts = [
       ["Developer", g.d], ["Publisher", g.p], ["Released", g.y], ["Genre", g.g],
       ["Players", g.pl], ["Region", g.rg], ["Series", g.se],
@@ -171,7 +163,7 @@
 
     $("#sheet-body").innerHTML = `
       ${g.l ? `<img class="sheet-logo" src="img/${g.l}" alt="${esc(g.t)} logo">` : ""}
-      <div class="sheet-head" style="--sys:${col}">
+      <div class="sheet-head">
         ${(g.c || g.b || g.m) ? `<div class="sheet-media">
           ${(g.c || g.b) ? `<div class="sheet-art"><img src="img/${g.c || g.b}" alt="Box art for ${esc(g.t)}"></div>` : ""}
           ${g.m ? `<img class="sheet-disc" src="img/${g.m}" alt="Cartridge or disc for ${esc(g.t)}" loading="lazy">` : ""}
@@ -180,8 +172,8 @@
           <h2 id="m-title">${esc(g.t)}</h2>
           <p class="sheet-sys">${esc(SYS[g.s].name)}</p>
           <p class="score">${g.r
-            ? `<span class="bar"><i style="width:${g.r}%"></i></span><b>${g.r}</b><span class="none">/ 100</span>`
-            : `<span class="none">No community rating</span>`}</p>
+            ? `<span class="meter">${meter(g.r)}</span> ${g.r}/100`
+            : `<span class="none">no rating</span>`}</p>
           <dl class="facts">${facts.map(([k,v]) =>
             `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
         </div>

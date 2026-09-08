@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Game Collection</title>
+<title>Retro Library</title>
 <meta name="description" content="A browsable catalogue of a retro game collection.">
 <link rel="preload" href="data/games.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
@@ -12,7 +12,7 @@
 <body>
 <header class="hero">
   <div class="wrap">
-    <h1>Game&nbsp;Collection</h1>
+    <h1>Retro-Library</h1>
     <dl class="stats" id="stats"></dl>
   </div>
 </header>
@@ -21,8 +21,7 @@
   <div class="wrap">
     <div class="row row-search">
       <div class="search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Search titles, developers, series…" autocomplete="off" spellcheck="false">
+        <input id="q" type="search" placeholder="search titles, developers, series" autocomplete="off" spellcheck="false">
         <button id="qclear" type="button" aria-label="Clear search" hidden>&times;</button>
       </div>
       <select id="sort" aria-label="Sort by">
@@ -52,8 +51,8 @@
 </main>
 
 <footer class="wrap foot">
-  <p>Metadata and artwork scraped via ScreenScraper into ES-DE. Box art, 3D boxes, cartridge and
-     disc scans, title screens, screenshots and logos all come from that scrape.</p>
+  <p>Metadata and artwork scraped via ScreenScraper into ES-DE — box art, 3D boxes, cartridge
+     and disc scans, title screens, screenshots and logos all come from that scrape.</p>
   <p id="generated"></p>
 </footer>
 

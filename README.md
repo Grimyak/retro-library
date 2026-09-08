@@ -17,6 +17,17 @@ community ratings, descriptions and release metadata.
 - Deep-linkable — each game gets its own URL fragment
 - No framework, no build step, no tracking. One HTML file, one CSS file, one JS file, one JSON payload.
 
+## Design
+
+A phosphor-terminal treatment: monochrome green on black, monospace throughout, box-drawn rules,
+a blinking prompt in the search field, ratings as block meters (`████████████░░░░░░░░ 62/100`)
+and facts set with dotted leaders. The chrome carries no colour at all, which leaves the box art
+as the only colour on the page.
+
+Two fonts are vendored into `docs/assets/fonts/` (52 KB, latin subset) so the site has no external
+requests: **VT323** for display type and **IBM Plex Mono** for everything meant to be read. The CRT
+scanline overlay is suppressed under `prefers-reduced-motion`, as is the blinking prompt.
+
 ## Where the data comes from
 
 Everything is read from a local [ES-DE](https://es-de.org/) install that was scraped with
