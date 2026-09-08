@@ -13,6 +13,10 @@
     view: store.get("view", "cover") === "box3d" ? "box3d" : "cover",
   };
   let DATA, SYS = {}, view = [];
+  // Artwork keeps its filename across re-scrapes — only the bytes change — so a
+  // cached copy would otherwise survive a rebuild. Stamping the build date on
+  // every request retires the old one the moment the catalogue is regenerated.
+  let V = "";
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   const gb  = b => b >= 2**30 ? (b/2**30).toFixed(1)+" GB" : Math.max(1,Math.round(b/2**20))+" MB";
@@ -20,7 +24,10 @@
   // 0-100 rating as a 20-cell block meter, e.g. ██████████████████░░
   const meter = r => { const f = Math.round(r / 5); return "█".repeat(f) + "░".repeat(20 - f); };
 
-  fetch("data/games.json")
+  // Revalidate rather than trust a cached copy: this file carries the build date
+  // that retires stale artwork, so serving it from cache would defeat the point.
+  // GitHub Pages sends an ETag, so an unchanged catalogue costs a 304.
+  fetch("data/games.json", { cache: "no-cache" })
     .then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)))
     .then(d => { DATA = d; init(); })
     .catch(e => { $("#grid").innerHTML =
@@ -43,6 +50,7 @@
     ).join("");
     $("#genre").insertAdjacentHTML("beforeend",
       DATA.genres.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join(""));
+    V = "?v=" + encodeURIComponent(DATA.generated);
     $("#generated").textContent = `Catalogue generated ${DATA.generated}.`;
 
     applyView();
@@ -136,7 +144,7 @@
     // fall back to the other artwork style when the preferred one is missing
     const src = state.view === "box3d" ? (g.b || g.c) : (g.c || g.b);
     const art = src
-      ? `<img src="img/${src}" alt="" loading="lazy" decoding="async">`
+      ? `<img src="img/${src}${V}" alt="" loading="lazy" decoding="async">`
       : `<span class="noart">No artwork</span>`;
     return `<button class="card" data-i="${g._i}">
       <span class="art">${g.r ? `<span class="badge">${g.r}</span>` : ""}${art}</span>
@@ -158,15 +166,15 @@
     const caps = [["shot","Screenshot","i"], ["title","Title screen","n"]]
       .filter(([,,k]) => g[k])
       .map(([,label,k]) =>
-        `<figure><img src="img/${g[k]}" alt="${esc(label)} from ${esc(g.t)}" loading="lazy">
+        `<figure><img src="img/${g[k]}${V}" alt="${esc(label)} from ${esc(g.t)}" loading="lazy">
          <figcaption>${label}</figcaption></figure>`).join("");
 
     $("#sheet-body").innerHTML = `
-      ${g.l ? `<img class="sheet-logo" src="img/${g.l}" alt="${esc(g.t)} logo">` : ""}
+      ${g.l ? `<img class="sheet-logo" src="img/${g.l}${V}" alt="${esc(g.t)} logo">` : ""}
       <div class="sheet-head">
         ${(g.c || g.b || g.m) ? `<div class="sheet-media">
-          ${(g.c || g.b) ? `<div class="sheet-art"><img src="img/${g.c || g.b}" alt="Box art for ${esc(g.t)}"></div>` : ""}
-          ${g.m ? `<img class="sheet-disc" src="img/${g.m}" alt="Cartridge or disc for ${esc(g.t)}" loading="lazy">` : ""}
+          ${(g.c || g.b) ? `<div class="sheet-art"><img src="img/${g.c || g.b}${V}" alt="Box art for ${esc(g.t)}"></div>` : ""}
+          ${g.m ? `<img class="sheet-disc" src="img/${g.m}${V}" alt="Cartridge or disc for ${esc(g.t)}" loading="lazy">` : ""}
         </div>` : ""}
         <div class="sheet-info">
           <h2 id="m-title">${esc(g.t)}</h2>
