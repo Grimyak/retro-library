@@ -70,12 +70,27 @@ def norm_title(name, base):
     if m: t = f"{m.group(2)} {m.group(1)}{m.group(3) or ''}"
     return t
 
-def sort_key(t): return re.sub(r"^(the|a|an)\s+", "", t.lower()).lstrip("'\"")
+# Single "I" and "X" are deliberately absent: standalone X is a name far more
+# often than a numeral here (Mega Man X, Ranger X, F-Zero X, Guilty Gear X,
+# Dracula X — only Final Fantasy X means ten).
+ROMAN = {"ii":2, "iii":3, "iv":4, "v":5, "vi":6, "vii":7, "viii":8, "ix":9,
+         "xi":11, "xii":12, "xiii":13, "xiv":14, "xv":15}
+ROMAN_RE = re.compile(r"\b(" + "|".join(sorted(ROMAN, key=len, reverse=True)) + r")\b")
+
+def sort_key(t):
+    """Sort sequels numerically, whether the title spells them in roman or
+    arabic — the library mixes both ("Golden Axe II" alongside "Golden Axe 3")."""
+    t = re.sub(r"^(the|a|an)\s+", "", t.lower()).lstrip("'\"")
+    t = ROMAN_RE.sub(lambda m: str(ROMAN[m.group(1)]), t)
+    return re.sub(r"\d+", lambda m: m.group().zfill(4), t)   # 2 before 10
 
 def region_of(base):
+    """None when the filename carries no region tag — Neo Geo uses MAME short
+    names, and the Dreamcast/GameCube rips are untagged. Better to omit the
+    field than to print "Unknown" as if it were a fact."""
     for needle, label in REGION_MAP:
         if f"({needle}" in base or f", {needle}" in base: return label
-    return "Unknown"
+    return None
 
 def year_of(rd):
     m = re.match(r"(\d{4})", rd or "")
