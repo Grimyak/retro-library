@@ -25,8 +25,12 @@ and facts set with dotted leaders. The chrome carries no colour at all, which le
 as the only colour on the page.
 
 Two fonts are vendored into `docs/assets/fonts/` (52 KB, latin subset) so the site has no external
-requests: **VT323** for display type and **IBM Plex Mono** for everything meant to be read. The CRT
-scanline overlay is suppressed under `prefers-reduced-motion`, as is the blinking prompt.
+requests: **VT323** for display type and **IBM Plex Mono** for everything meant to be read.
+
+The CRT scanline and vignette texture is painted on the **body background, behind the content**,
+rather than as an overlay on top of it. Anything that paints an opaque surface — card artwork, the
+detail panel — therefore covers it completely, so no scanline ever crosses a piece of box art. The
+scanlines are dropped under `prefers-reduced-motion`, as is the blinking prompt.
 
 ## Where the data comes from
 

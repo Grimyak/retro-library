@@ -11,7 +11,7 @@
   font-weight:400;font-style:normal;font-display:swap}
 
 :root{
-  --bg:#040806; --bg2:#06100a; --surface:#08170e; --surface2:#0c2214;
+  --bg:#061009; --bg2:#06100a; --surface:#08170e; --surface2:#0c2214;
   --line:#17482b; --line2:#1d5836;
   --text:#7dfbaf; --mid:#45cf87; --dim:#2b9a60; --dim2:#1d6b43;
   --glow:rgba(77,245,143,.32);
@@ -23,19 +23,18 @@
 [hidden]{display:none !important}
 html{-webkit-text-size-adjust:100%}
 body{
-  margin:0; background:var(--bg); color:var(--text);
-  font:14px/1.6 var(--mono); -webkit-font-smoothing:antialiased;
+  margin:0; color:var(--text); font:14px/1.6 var(--mono); -webkit-font-smoothing:antialiased;
+  /* CRT texture lives *behind* the content, never on top of it: artwork and the
+     detail panel paint their own opaque background and stay perfectly clean. */
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse at 50% 38%,transparent 58%,rgba(0,0,0,.55) 100%),
+    repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.45) 2px 3px);
+  background-attachment:fixed;
 }
-/* CRT overlays — scanlines and a vignette, above everything, never clickable */
-body::before{
-  content:""; position:fixed; inset:0; z-index:200; pointer-events:none;
-  background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.20) 2px 4px);
+@media (prefers-reduced-motion:reduce){
+  body{background-image:radial-gradient(ellipse at 50% 38%,transparent 58%,rgba(0,0,0,.55) 100%)}
 }
-body::after{
-  content:""; position:fixed; inset:0; z-index:199; pointer-events:none;
-  background:radial-gradient(ellipse at 50% 45%,transparent 52%,rgba(0,0,0,.55) 100%);
-}
-@media (prefers-reduced-motion:reduce){ body::before{display:none} }
 
 .wrap{max-width:var(--wrap); margin:0 auto; padding:0 24px}
 a{color:var(--text)}
@@ -110,13 +109,7 @@ select:hover{border-color:var(--mid)}
 .seg button[aria-pressed="true"]{background:var(--mid); color:#020403; font-weight:600}
 .seg svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.7}
 
-.row-systems{
-  margin-top:9px; overflow-x:auto; padding-bottom:3px;
-  scrollbar-width:thin; scrollbar-color:var(--line2) transparent;
-}
-.row-systems::-webkit-scrollbar{height:5px}
-.row-systems::-webkit-scrollbar-track{background:transparent}
-.row-systems::-webkit-scrollbar-thumb{background:var(--line2)}
+.row-systems{margin-top:9px; flex-wrap:wrap; gap:7px}
 .pill{
   flex:0 0 auto; display:inline-flex; align-items:baseline; gap:7px; white-space:nowrap;
   padding:5px 10px; border:1px solid var(--line); background:transparent; color:var(--dim);
