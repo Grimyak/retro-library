@@ -1,6 +1,6 @@
 # Retro Library
 
-A static, browsable catalogue of a personal retro game collection — **1,701 games across 17
+A static, browsable catalogue of a personal retro game collection — **1,700 games across 17
 systems**, with box art, 3D boxes, cartridge and disc scans, screenshots, title screens, logos,
 community ratings, descriptions and release metadata.
 
@@ -50,7 +50,7 @@ key is needed.
 | `/mnt/games/Roms/<system>/` | on-disk file sizes, and the `<family>` series field salvaged from the older gamelists |
 
 Media is matched to games by ROM basename and resolves at **100% across all six artwork types** —
-every one of the 1,701 games has a cover, 3D box, screenshot, title screen, disc scan and logo.
+every one of the 1,700 games has a cover, 3D box, screenshot, title screen, disc scan and logo.
 
 Gamelists keep rows for files that no longer exist — discs folded into a folder-layout game, or
 deleted playlists. ES-DE skips those at load and so does the build, which reports the count.
