@@ -24,6 +24,8 @@ SYSTEMS = {
     "mastersystem": ("Sega Master System",            "SMS",      1985),
     "megadrive":    ("Sega Mega Drive / Genesis",     "Genesis",  1988),
     "saturn":       ("Sega Saturn",                   "Saturn",   1994),
+    "dreamcast":    ("Sega Dreamcast",                "Dreamcast",1998),
+    "gc":           ("Nintendo GameCube",             "GameCube", 2001),
     "psx":          ("Sony PlayStation",              "PS1",      1994),
     "ps2":          ("Sony PlayStation 2",            "PS2",      2000),
     "pcengine":     ("PC Engine / TurboGrafx-16",     "PCE",      1987),
@@ -35,7 +37,8 @@ MEDIA_KINDS = {"cover":"covers", "box3d":"3dboxes", "shot":"screenshots",
                "title":"titlescreens", "disc":"physicalmedia", "logo":"marquees"}
 
 ROM_EXT = {".zip",".chd",".7z",".nds",".gba",".gb",".gbc",".n64",".z64",".v64",
-           ".sfc",".smc",".nes",".iso",".cso",".pce",".md",".gen",".sms",".m3u",".pbp"}
+           ".sfc",".smc",".nes",".iso",".cso",".pce",".md",".gen",".sms",".m3u",".pbp",
+           ".rvz",".gcm",".gcz",".ciso",".gdi",".cdi",".wbfs"}
 
 ARTICLE = re.compile(r"^(.+?),\s+(The|A|An|Le|La|Les|Der|Die|Das|El|Los)\b(\s*[-–].*)?$", re.I)
 REGION_MAP = [("USA","USA"),("World","World"),("Europe","Europe"),("Japan","Japan"),
@@ -75,12 +78,34 @@ def year_of(rd):
     y = int(m.group(1)) if m else None
     return y if y and 1970 <= y <= 2015 else None
 
+# The two scrapers disagree on spelling; fold the collisions together.
+GENRE_ALIAS = {
+    "role-playing": "Role Playing Game",
+    "role playing": "Role Playing Game",
+    "rpg": "Role Playing Game",
+    "shoot'em up": "Shoot'em Up",
+    "beat'em up": "Beat'em Up",
+}
+
 def clean_genre(g):
+    """Keep the primary genre only.
+
+    Both scrapers separate genres with "/" or "," ("Action, Adventure",
+    "Shooter / Vehicle, TPV"). Hyphens are *not* separators — "Role-Playing"
+    and "Party-Based RPG" are single genres — so splitting on them was wrong.
+    """
     g = (g or "").strip()
     if not g: return None
-    return re.split(r"\s*[/\-–]\s*", g)[0].strip() or None
+    primary = re.split(r"\s*[/,]\s*", g)[0].strip()
+    return GENRE_ALIAS.get(primary.lower(), primary) or None
 
-def rom_size(sysdir, base):
+def rom_size(sysdir, base, ext=""):
+    # a folder-layout game ("<game>.m3u/" holding the discs) is sized by its contents
+    d = os.path.join(sysdir, base + ext)
+    if ext and os.path.isdir(d):
+        return sum(os.path.getsize(os.path.join(d, f)) for f in os.listdir(d)
+                   if os.path.isfile(os.path.join(d, f))
+                   and os.path.splitext(f)[1].lower() in ROM_EXT - {".m3u"})
     tot = 0
     for f in glob.glob(glob.escape(os.path.join(sysdir, base)) + "*"):
         if os.path.isfile(f) and os.path.splitext(f)[1].lower() in ROM_EXT - {".m3u"}:
@@ -92,13 +117,18 @@ def rom_size(sysdir, base):
                 tot += os.path.getsize(f)
     return tot
 
-def find_media(sysid, bases):
-    """First basename in `bases` that has a file wins, per media kind."""
+def find_media(sysid, names):
+    """First name in `names` that has a file wins, per media kind.
+
+    ES-DE resolves media through getStem(), which does *not* strip the extension
+    when the path is a directory — so a folder-layout game "Game.m3u" stores its
+    artwork as "Game.m3u.png". Both spellings are tried.
+    """
     out = {}
     for key, sub in MEDIA_KINDS.items():
-        for b in bases:
+        for n in names:
             for ext in (".png", ".jpg"):
-                p = os.path.join(MEDIA, sysid, sub, b + ext)
+                p = os.path.join(MEDIA, sysid, sub, n + ext)
                 if os.path.isfile(p): out[key] = p; break
             if key in out: break
     return out
@@ -118,7 +148,7 @@ def legacy_series(sysid):
     return out
 
 def main():
-    games, skipped, merged = [], Counter(), Counter()
+    games, skipped, merged, stale = [], Counter(), Counter(), Counter()
     for sysid, (full, short, era) in SYSTEMS.items():
         gl = os.path.join(GAMELISTS, sysid, "gamelist.xml")
         if not os.path.isfile(gl): continue
@@ -132,6 +162,10 @@ def main():
             base = os.path.splitext(os.path.basename(path))[0]
             if not base: continue
             ext = os.path.splitext(path)[1].lower()
+            # gamelists keep rows for files that no longer exist (discs moved into
+            # a folder-layout game, deleted playlists); ES-DE skips them, so do we
+            if not os.path.exists(os.path.join(sysdir, base + ext)):
+                stale[sysid] += 1; continue
             groups.setdefault(DISC_TAG.sub("", base), []).append((base, ext, g))
 
         for key, members in sorted(groups.items(), key=lambda kv: kv[0].lower()):
@@ -162,9 +196,10 @@ def main():
                 "series":  series.get(base) or None,
                 "rating":  round(float(rating) * 100) if rating else None,
                 "desc":    re.sub(r"\s+", " ", gt("desc")).strip() or None,
-                "size":    rom_size(sysdir, base),
+                "size":    rom_size(sysdir, base, ext),
                 "discs":   len([m for m in members if "(Disc" in m[0]]) or None,
-                "_media":  find_media(sysid, [m[0] for m in sorted(members, key=rank, reverse=True)]),
+                "_media":  find_media(sysid, [n for m in sorted(members, key=rank, reverse=True)
+                                              for n in (m[0] + m[1], m[0])]),
             })
 
     games.sort(key=lambda x: (x["sys"], x["sk"]))
@@ -182,6 +217,7 @@ def main():
           + f"{sum(1 for g in games if g['rating']):>7}")
     print(f"on disk: {sum(g['size'] for g in games)/2**30:.0f} GB"
           f" | series salvaged: {sum(1 for g in games if g['series'])}")
+    if stale: print("stale gamelist rows skipped:", dict(stale))
     if merged: print("multi-disc/duplicate entries merged:", dict(merged))
     if skipped: print("skipped non-games:", dict(skipped))
 

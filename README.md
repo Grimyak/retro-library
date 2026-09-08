@@ -1,6 +1,6 @@
 # Retro Library
 
-A static, browsable catalogue of a personal retro game collection — **1,651 games across 15
+A static, browsable catalogue of a personal retro game collection — **1,703 games across 17
 systems**, with box art, 3D boxes, cartridge and disc scans, screenshots, title screens, logos,
 community ratings, descriptions and release metadata.
 
@@ -49,7 +49,13 @@ key is needed.
 | `~/ES-DE/downloaded_media/<system>/marquees/` | wheel logo |
 | `/mnt/games/Roms/<system>/` | on-disk file sizes, and the `<family>` series field salvaged from the older gamelists |
 
-Media is matched to games by ROM basename, which resolves at 100% across all six artwork types.
+Media is matched to games by ROM basename, which resolves at 100% for covers. Dreamcast and
+GameCube were scraped with a lower-quality service and are thinner on the other artwork types
+(GameCube has no ratings, 3D boxes or disc scans yet); re-scraping them will fill those in without
+any change to the build.
+
+Gamelists keep rows for files that no longer exist — discs folded into a folder-layout game, or
+deleted playlists. ES-DE skips those at load and so does the build, which reports the count.
 
 **Not included:** `videos/` (9.7 GB), `miximages/` (composites of artwork already present here),
 `backcovers/` and `fanart/`. They're all still in ES-DE — see `SPECS` in
