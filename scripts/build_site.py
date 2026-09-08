@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Emit the compact games.json the site loads."""
-import json, os, collections, datetime
+import json, os, glob, collections, datetime
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SITE = os.path.join(ROOT, "docs")
@@ -44,11 +44,22 @@ def main():
         },
         "games": out,
     }
+    # Generated artwork nobody references any more - per-disc images left behind by
+    # the multi-disc folder conversion, or games removed from the library. These are
+    # all reproducible from the ES-DE media tree, so dropping them is safe.
+    used = {g[k] for g in out for k in MEDIA.values() if g.get(k)}
+    orphans = [f for f in glob.glob(os.path.join(SITE, "img", "*", "*", "*.webp"))
+               if os.path.relpath(f, os.path.join(SITE, "img")) not in used]
+    freed = sum(os.path.getsize(f) for f in orphans)
+    for f in orphans:
+        os.remove(f)
+
     p = os.path.join(SITE, "data", "games.json")
     json.dump(payload, open(p, "w"), separators=(",", ":"), ensure_ascii=False)
 
     st = payload["stats"]
     if dropped: print(f"  dropped {dropped} refs to artwork that failed to convert")
+    if orphans: print(f"  pruned {len(orphans)} orphaned image(s), {freed/2**20:.1f} MB")
     print(f"games.json: {os.path.getsize(p)/1024:.0f} KB")
     print(f"  {st['games']} games / {len(systems)} systems / {st['bytes']/2**30:.0f} GB"
           f" / {st['rated']} rated / {len(genres)} genres")

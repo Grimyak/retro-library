@@ -49,12 +49,16 @@ REGION_TAG = re.compile(
 LANG_TAG = re.compile(r"\s*\((?:En|Ja|Fr|De|Es|It|Pt|Ru|Ko|Zh|Nl|Sv|Da|No|Fi|Pl)"
                       r"(?:,\s?[A-Za-z]{2})*\)", re.I)
 REV_TAG  = re.compile(r"\s*\((?:Rev|v)\s?[\d.]+[^)]*\)", re.I)
+# purely technical cartridge qualifiers - never part of a game's name
+HW_TAG   = re.compile(r"\s*\((?:SGB Enhanced|GB Compatible|NP|Rumble Version|"
+                      r"GameCube Edition|Player's Choice|Greatest Hits)\)", re.I)
 DISC_TAG = re.compile(r"\s*\(Disc\s*\d+\)(\s*\([^)]*\))*\s*$", re.I)
 
 def strip_tags(t):
     t = re.sub(r"[\[\(]\s*T-En[^\]\)]*[\]\)]", "(English patch)", t, flags=re.I)
     t = re.sub(r"\s*\[[^\]]*\]", "", t)
     t = REGION_TAG.sub("", t); t = LANG_TAG.sub("", t); t = REV_TAG.sub("", t)
+    t = HW_TAG.sub("", t)
     return re.sub(r"\s{2,}", " ", t).strip()
 
 def norm_title(name, base):
@@ -202,6 +206,22 @@ def main():
                                               for n in (m[0] + m[1], m[0])]),
             })
 
+    # The scrapers sometimes give two different games the same name (Tara's
+    # Adventure identified as Cobi's Journey, R.C. Pro-Am II as R.C. Pro-Am).
+    # Where that happens, fall back to the filename, which is a correct
+    # No-Intro/Redump name - nothing is invented, the scraped name is just
+    # not trustworthy enough to tell the two apart.
+    collisions = Counter((g["sys"], g["title"]) for g in games)
+    renamed = 0
+    for g in games:
+        if collisions[(g["sys"], g["title"])] > 1:
+            # run the filename through the normal path so region/dump tags are
+            # dropped but meaningful parentheses ("(Arcade Mode)") are kept
+            fromfile = norm_title(g["file"], g["file"])
+            if fromfile and fromfile != g["title"]:
+                g["title"], g["sk"] = fromfile, sort_key(fromfile)
+                renamed += 1
+
     games.sort(key=lambda x: (x["sys"], x["sk"]))
     os.makedirs(OUT, exist_ok=True)
     json.dump({"systems": SYSTEMS, "games": games}, open(os.path.join(OUT, "_raw.json"), "w"))
@@ -217,6 +237,7 @@ def main():
           + f"{sum(1 for g in games if g['rating']):>7}")
     print(f"on disk: {sum(g['size'] for g in games)/2**30:.0f} GB"
           f" | series salvaged: {sum(1 for g in games if g['series'])}")
+    if renamed: print(f"titles taken from filename to break {renamed} name collision(s)")
     if stale: print("stale gamelist rows skipped:", dict(stale))
     if merged: print("multi-disc/duplicate entries merged:", dict(merged))
     if skipped: print("skipped non-games:", dict(skipped))

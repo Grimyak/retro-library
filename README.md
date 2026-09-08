@@ -1,6 +1,6 @@
 # Retro Library
 
-A static, browsable catalogue of a personal retro game collection — **1,703 games across 17
+A static, browsable catalogue of a personal retro game collection — **1,701 games across 17
 systems**, with box art, 3D boxes, cartridge and disc scans, screenshots, title screens, logos,
 community ratings, descriptions and release metadata.
 
@@ -49,10 +49,8 @@ key is needed.
 | `~/ES-DE/downloaded_media/<system>/marquees/` | wheel logo |
 | `/mnt/games/Roms/<system>/` | on-disk file sizes, and the `<family>` series field salvaged from the older gamelists |
 
-Media is matched to games by ROM basename, which resolves at 100% for covers. Dreamcast and
-GameCube were scraped with a lower-quality service and are thinner on the other artwork types
-(GameCube has no ratings, 3D boxes or disc scans yet); re-scraping them will fill those in without
-any change to the build.
+Media is matched to games by ROM basename and resolves at **100% across all six artwork types** —
+every one of the 1,701 games has a cover, 3D box, screenshot, title screen, disc scan and logo.
 
 Gamelists keep rows for files that no longer exist — discs folded into a folder-layout game, or
 deleted playlists. ES-DE skips those at load and so does the build, which reports the count.
@@ -147,7 +145,13 @@ Quirks the build handles, in case you hit them on your own library:
 - The current ES-DE scrape dropped the `<family>` field, so series names are salvaged from the
   older gamelists still sitting next to the ROMs (1,009 of them).
 - `build_site.py` verifies every image path before emitting it, so a failed conversion degrades
-  to a placeholder rather than a 404.
+  to a placeholder rather than a 404. It also prunes generated artwork nothing references any more
+  — per-disc images left behind by the multi-disc conversion, or games removed from the library.
+- Scrapers occasionally give two different games the same name (Tara's Adventure identified as
+  Cobi's Journey, R.C. Pro-Am II as R.C. Pro-Am, King of Demons as King of Dragons). Where two
+  games in one system would collide, the title falls back to the filename, which is a correct
+  No-Intro/Redump name — nothing is invented, the scraped name simply isn't trustworthy enough to
+  tell them apart.
 
 ## Layout
 
