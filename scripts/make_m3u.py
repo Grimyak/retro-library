@@ -24,6 +24,11 @@ ROMS = "/mnt/games/Roms"
 DISC = re.compile(r'\s*\((?:Dis[ck])\s*(\d+)\)', re.I)
 # .bin is deliberately absent: a multi-track rip ships one .bin per track and
 # the .cue is the real entry point, so matching .bin would invent bogus sets.
+# Dolphin parses .m3u playlists but requires Unix line endings - a trailing \r
+# ends up in the filename and the disc fails to open. Everything else in this
+# library (and the RetroArch cores) is happy with CRLF, so only these differ.
+LF_SYSTEMS = {"gc", "wii"}
+
 EXT = ('.chd', '.cue', '.iso', '.cso', '.ccd', '.mds', '.gdi', '.cdi',
        '.rvz', '.gcm', '.gcz', '.ciso', '.wbfs', '.nrg')
 
@@ -64,9 +69,10 @@ def main():
             if clash:
                 print(f"  !!  {sysid}/{stem}  (a {clash[0]} of the same name exists - skipped)")
                 collide += 1; continue
+            eol = "\n" if sysid in LF_SYSTEMS else "\r\n"
             if a.write:
                 with open(os.path.join(d, stem + ".m3u"), "w", newline="") as fh:
-                    fh.write("".join(f + "\r\n" for _, f in discs))
+                    fh.write("".join(f + eol for _, f in discs))
             print(f"  {'++' if a.write else '>>'}  {sysid}/{stem}.m3u  "
                   f"[{len(discs)} discs: {', '.join(str(n) for n, _ in discs)}]")
             made += 1

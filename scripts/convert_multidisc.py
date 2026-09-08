@@ -60,6 +60,11 @@ ROMS = "/mnt/games/Roms"
 GL   = os.path.expanduser("~/ES-DE/gamelists")
 MED  = os.path.expanduser("~/ES-DE/downloaded_media")
 DISC = re.compile(r'\s*\((?:Dis[ck])\s*\d+\)', re.I)
+# Dolphin parses .m3u playlists but requires Unix line endings - a trailing \r
+# ends up in the filename and the disc fails to open. Everything else in this
+# library (and the RetroArch cores) is happy with CRLF, so only these differ.
+LF_SYSTEMS = {"gc", "wii"}
+
 ROMEXT = ('.chd','.cue','.iso','.cso','.ccd','.mds','.gdi','.cdi','.rvz','.gcm','.gcz','.ciso')
 META = ('name','desc','rating','releasedate','developer','publisher','genre','players')
 
@@ -139,8 +144,9 @@ def main():
                 for f in discs: os.rename(f"{d}/{f}", f"{m3u}/{f}")
                 if has_m3u: os.rename(tmp, f"{m3u}/{dirname}")
                 else:
+                    eol = "\n" if sysid in LF_SYSTEMS else "\r\n"
                     with open(f"{m3u}/{dirname}", "w", newline="") as fh:
-                        fh.write("".join(x + "\r\n" for x in discs))
+                        fh.write("".join(x + eol for x in discs))
             log.append(f"        {'moved' if has_m3u else 'moved + created playlist'}")
             link_media(sysid, stem, dirname, discs, a.write, log)
             # make sure the folder entry carries metadata (clone disc 1's if absent)

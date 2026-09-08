@@ -90,9 +90,11 @@ whose name collides with an existing ROM (that would appear twice in the fronten
 one for a set with only a single disc present. `.bin` is excluded on purpose: a multi-track rip
 ships one `.bin` per track and the `.cue` is the real entry point.
 
-A note on GameCube — ES-DE accepts `.m3u` for it, but the default emulator is the libretro Dolphin
-core, whose disc-control support is unreliable, and standalone Dolphin ignores `.m3u` entirely. Its
-sets are reported but left alone unless you ask for them explicitly.
+**Line endings matter for Dolphin.** Playlists are written with CRLF to match the ones already in
+the library, which the RetroArch cores are happy with — but Dolphin needs Unix line endings, since a
+trailing `\r` lands inside the filename and the disc fails to open. `LF_SYSTEMS` in both scripts
+covers `gc` and `wii`. ES-DE's own system table confirms `.m3u` is the correct format for GameCube
+multi-disc games.
 
 ### Multi-disc folder layout
 
@@ -108,7 +110,7 @@ psx/Xenogears (USA).m3u/Xenogears (USA).m3u       <- what gets launched
 
 It also deletes redundant single-disc playlists, which do nothing for disc swapping and merely
 double the entry. Running it took PS1 from 433 entries to 200, Saturn 62 to 52 and Dreamcast 41
-to 32.
+to 32, and folded GameCube's two sets in as well.
 
 ```bash
 python3 scripts/convert_multidisc.py             # preview
