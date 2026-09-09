@@ -8,12 +8,24 @@ SITE = os.path.join(ROOT, "docs")
 # long name -> compact key used in games.json
 FIELDS = {"sys":"s", "title":"t", "sk":"k", "file":"f", "year":"y", "genre":"g",
           "dev":"d", "pub":"p", "players":"pl", "rating":"r", "region":"rg",
-          "series":"se", "size":"z", "desc":"x", "discs":"dc"}
+          "series":"se", "size":"z", "desc":"x", "discs":"dc", "great":"gg"}
 MEDIA  = {"cover":"c", "box3d":"b", "shot":"i", "title":"n", "disc":"m", "logo":"l"}
 
 def main():
     data  = json.load(open(os.path.join(SITE, "data", "_raw.json")))
     games = data["games"]
+
+    # Games ranked by RetroAchievements player count (see scripts/great_games.json).
+    # Flagged here so the site can feature them without carrying any RA data or key.
+    gg_path = os.path.join(ROOT, "scripts", "great_games.json")
+    great = {}
+    if os.path.isfile(gg_path):
+        great = {e["id"]: i + 1 for i, e in enumerate(json.load(open(gg_path))["games"])}
+    matched = 0
+    for g in games:
+        rank = great.get(f"{g['sys']}/{g['file']}")
+        if rank:
+            g["great"] = rank; matched += 1
 
     dropped = 0
     for g in games:
@@ -41,6 +53,7 @@ def main():
             "bytes":  sum(x.get("z", 0) for x in out),
             "rated":  sum(1 for x in out if x.get("r")),
             "covers": sum(1 for x in out if x.get("c")),
+            "great":  sum(1 for x in out if x.get("gg")),
         },
         "games": out,
     }
@@ -59,6 +72,7 @@ def main():
 
     st = payload["stats"]
     if dropped: print(f"  dropped {dropped} refs to artwork that failed to convert")
+    if great: print(f"  flagged {matched}/{len(great)} RetroAchievements top-200 games")
     if orphans: print(f"  pruned {len(orphans)} orphaned image(s), {freed/2**20:.1f} MB")
     print(f"games.json: {os.path.getsize(p)/1024:.0f} KB")
     print(f"  {st['games']} games / {len(systems)} systems / {st['bytes']/2**30:.0f} GB"

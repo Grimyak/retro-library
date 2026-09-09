@@ -68,8 +68,10 @@
   function monthlyPick() {
     const now = new Date();
     const key = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, "0")}`;
-    const pool = DATA.games
-      .filter(g => (g.r || 0) >= 90 && g.c && g.x)
+    // the RetroAchievements top 200 where the build has flagged them, otherwise
+    // fall back to a rating cut so the feature still works without that list
+    const flagged = DATA.games.filter(g => g.gg && g.c && g.x);
+    const pool = (flagged.length ? flagged : DATA.games.filter(g => (g.r || 0) >= 90 && g.c && g.x))
       // plain codepoint order, not localeCompare - that is locale-dependent and
       // would hand different visitors a different game for the same month
       .sort((a, b) => {

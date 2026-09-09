@@ -8,8 +8,8 @@ community ratings, descriptions and release metadata.
 
 ## What it does
 
-- **Game of the month** — a featured pick above the grid, chosen from the 478 games rated 90+
-  that have a cover, logo and description
+- **Game of the month** — a featured pick above the grid, drawn from the 200 most-played games
+  in the library according to RetroAchievements
 - Grid of every game, switchable between **flat box art** and **3D boxes**
 - Sort A–Z, by rating, by release year, or by file size
 - Filter by system (multi-select) and genre; free-text search across titles,
@@ -25,6 +25,12 @@ The pick is derived in the browser from the current month rather than baked in a
 it rotates on its own and the site never needs rebuilding to stay current. An FNV-1a hash of
 `YYYY-MM` indexes into the eligible pool, which keeps the choice stable for the whole month and
 identical for every visitor.
+
+The pool is `scripts/great_games.json` — the 200 most-played games in this library by
+RetroAchievements distinct-player count, ranked once and recorded so the site builds with no API
+key and no network access. `build_site.py` flags those games in `games.json`; if the file is
+absent the feature falls back to a rating cut, so nothing breaks. Player counts are a markedly
+different signal from scraped review scores: over half that top 200 is rated below 85.
 
 Two details matter for that last guarantee: the month comes from **UTC** so it doesn't turn over a
 day early depending on where you are, and the pool is sorted by plain codepoint order rather than
@@ -152,6 +158,9 @@ scrape only on the `.m3u` entry — and gamelists are backed up first.
 
 Quirks the build handles, in case you hit them on your own library:
 
+- ES-DE writes a per-system `<alternativeEmulator>` block **alongside** `<gameList>`, which leaves
+  the file with two top-level elements. That is not well-formed XML — ES-DE's own parser tolerates
+  it, Python's does not — so gamelists are wrapped in a synthetic root before parsing.
 - The PSX and Saturn gamelists carry **one entry per disc plus a `.m3u` playlist entry** — 433
   PSX entries for 205 actual games. Entries are grouped by basename with `(Disc n)` stripped, and
   the playlist entry wins; multi-disc games report their disc count.

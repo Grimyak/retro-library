@@ -152,6 +152,18 @@ def find_media(sysid, names):
             if key in out: break
     return out
 
+def parse_gamelist(path):
+    """ES-DE writes a per-system <alternativeEmulator> block *alongside* <gameList>,
+    giving the file two top-level elements. That is not well-formed XML — ES-DE's
+    own parser tolerates it, Python's does not — so wrap the contents in a
+    synthetic root before parsing."""
+    raw = open(path, encoding="utf-8").read()
+    raw = re.sub(r"^\s*<\?xml[^>]*\?>", "", raw, count=1).strip()
+    try:
+        return ET.fromstring(f"<root>{raw}</root>")
+    except ET.ParseError:
+        return ET.parse(path).getroot()          # already single-rooted
+
 def legacy_series(sysid):
     """The older gamelists next to the ROMs carried a <family> field the new
     ES-DE scrape drops. Salvage it, keyed by ROM basename."""
@@ -159,7 +171,7 @@ def legacy_series(sysid):
     out = {}
     if os.path.isfile(p):
         try:
-            for g in ET.parse(p).getroot().findall("game"):
+            for g in parse_gamelist(p).iter("game"):
                 b = os.path.splitext(os.path.basename(g.findtext("path") or ""))[0]
                 fam = (g.findtext("family") or "").strip()
                 if b and fam: out[b] = fam
@@ -176,7 +188,7 @@ def main():
 
         # group entries that are the same game (multi-disc sets, .chd next to .m3u)
         groups = {}
-        for g in ET.parse(gl).getroot().findall("game"):
+        for g in parse_gamelist(gl).iter("game"):
             path = (g.findtext("path") or "").strip()
             base = os.path.splitext(os.path.basename(path))[0]
             if not base: continue

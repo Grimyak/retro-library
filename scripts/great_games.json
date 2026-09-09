@@ -1,0 +1,1007 @@
+{
+ "_note": "The 200 most-played games in this library according to RetroAchievements' distinct-player counts, highest first. Ranked once and recorded here so the site builds without needing an API key. Games were matched to RA by title per system; roughly 20% of the library has no RA entry (mostly Japan-only titles, fan translations and Neo Geo MAME short names).",
+ "generated": "2026-09-09",
+ "source": "https://retroachievements.org/",
+ "games": [
+  {
+   "id": "snes/Super Mario World (USA)",
+   "players": 109310,
+   "title": "Super Mario World"
+  },
+  {
+   "id": "nes/Super Mario Bros. (World)",
+   "players": 79787,
+   "title": "Super Mario Bros."
+  },
+  {
+   "id": "ps2/God of War (USA)",
+   "players": 69944,
+   "title": "God of War"
+  },
+  {
+   "id": "psx/Castlevania - Symphony of the Night (USA)",
+   "players": 66162,
+   "title": "Castlevania: Symphony of the Night"
+  },
+  {
+   "id": "snes/Donkey Kong Country (USA) (Rev 2)",
+   "players": 63935,
+   "title": "Donkey Kong Country"
+  },
+  {
+   "id": "megadrive/Sonic The Hedgehog (USA, Europe)",
+   "players": 61375,
+   "title": "Sonic The Hedgehog"
+  },
+  {
+   "id": "n64/Super Mario 64 (USA)",
+   "players": 58225,
+   "title": "Super Mario 64"
+  },
+  {
+   "id": "nes/Super Mario Bros. 3 (USA) (Rev 1)",
+   "players": 51683,
+   "title": "Super Mario Bros. 3"
+  },
+  {
+   "id": "psx/Crash Bandicoot (USA)",
+   "players": 51396,
+   "title": "Crash Bandicoot"
+  },
+  {
+   "id": "snes/Legend of Zelda, The - A Link to the Past (USA)",
+   "players": 47141,
+   "title": "The Legend of Zelda: A Link to the Past"
+  },
+  {
+   "id": "gba/Pokemon - Emerald Version (USA, Europe)",
+   "players": 45614,
+   "title": "Pokémon Emerald Version"
+  },
+  {
+   "id": "gb/Super Mario Land (World) (Rev 1)",
+   "players": 43780,
+   "title": "Super Mario Land"
+  },
+  {
+   "id": "psx/Silent Hill (USA)",
+   "players": 36654,
+   "title": "Silent Hill"
+  },
+  {
+   "id": "nes/Legend of Zelda, The (USA) (Rev 1)",
+   "players": 36504,
+   "title": "The Legend of Zelda"
+  },
+  {
+   "id": "gba/Pokemon - FireRed Version (USA, Europe) (Rev 1)",
+   "players": 36392,
+   "title": "Pokémon FireRed Version"
+  },
+  {
+   "id": "gba/Metroid - Zero Mission (USA)",
+   "players": 35568,
+   "title": "Metroid: Zero Mission"
+  },
+  {
+   "id": "snes/Super Mario All-Stars (USA)",
+   "players": 34704,
+   "title": "Super Mario All-Stars"
+  },
+  {
+   "id": "psx/Tekken 3 (USA)",
+   "players": 34340,
+   "title": "Tekken 3"
+  },
+  {
+   "id": "gba/Castlevania - Aria of Sorrow (USA)",
+   "players": 32706,
+   "title": "Castlevania: Aria of Sorrow"
+  },
+  {
+   "id": "ps2/God of War II (USA)",
+   "players": 30036,
+   "title": "God of War II"
+  },
+  {
+   "id": "snes/Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) (Rev 1)",
+   "players": 29962,
+   "title": "Donkey Kong Country 2: Diddy's Kong Quest"
+  },
+  {
+   "id": "snes/Super Metroid (Japan, USA) (En,Ja)",
+   "players": 29132,
+   "title": "Super Metroid"
+  },
+  {
+   "id": "nes/Tetris (USA)",
+   "players": 28978,
+   "title": "Tetris"
+  },
+  {
+   "id": "snes/Chrono Trigger (USA)",
+   "players": 28854,
+   "title": "Chrono Trigger"
+  },
+  {
+   "id": "n64/Mario Kart 64 (USA)",
+   "players": 28733,
+   "title": "Mario Kart 64"
+  },
+  {
+   "id": "psx/Metal Gear Solid (USA) (Rev 1)",
+   "players": 28509,
+   "title": "Metal Gear Solid"
+  },
+  {
+   "id": "gba/Legend of Zelda, The - The Minish Cap (USA)",
+   "players": 26217,
+   "title": "The Legend of Zelda: The Minish Cap"
+  },
+  {
+   "id": "nes/Castlevania (USA) (Rev 1)",
+   "players": 25736,
+   "title": "Castlevania"
+  },
+  {
+   "id": "gba/Metroid Fusion (USA)",
+   "players": 25138,
+   "title": "Metroid Fusion"
+  },
+  {
+   "id": "gb/Pokemon - Red Version (USA, Europe) (SGB Enhanced)",
+   "players": 24810,
+   "title": "Pokémon Red Version"
+  },
+  {
+   "id": "gba/Kirby - Nightmare in Dream Land (USA)",
+   "players": 22758,
+   "title": "Kirby: Nightmare in Dream Land"
+  },
+  {
+   "id": "megadrive/Sonic The Hedgehog 2 (World) (Rev B)",
+   "players": 22578,
+   "title": "Sonic The Hedgehog 2"
+  },
+  {
+   "id": "nes/Contra (USA)",
+   "players": 22299,
+   "title": "Contra"
+  },
+  {
+   "id": "n64/Super Smash Bros. (USA)",
+   "players": 22270,
+   "title": "Super Smash Bros."
+  },
+  {
+   "id": "snes/Kirby Super Star (USA)",
+   "players": 22205,
+   "title": "Kirby Super Star"
+  },
+  {
+   "id": "nes/Kirby's Adventure (USA) (Rev 1)",
+   "players": 21983,
+   "title": "Kirby's Adventure"
+  },
+  {
+   "id": "snes/Mega Man X (USA) (Rev 1)",
+   "players": 21942,
+   "title": "Mega Man X"
+  },
+  {
+   "id": "snes/Super Mario World 2 - Yoshi's Island (USA) (Rev 1)",
+   "players": 21892,
+   "title": "Super Mario World 2: Yoshi's Island"
+  },
+  {
+   "id": "gbc/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible)",
+   "players": 21811,
+   "title": "The Legend of Zelda: Link's Awakening DX"
+  },
+  {
+   "id": "gba/WarioWare, Inc. - Mega Microgame$! (USA)",
+   "players": 21735,
+   "title": "WarioWare, Inc.: Mega Microgame$!"
+  },
+  {
+   "id": "gba/Sonic Advance (USA) (En,Ja)",
+   "players": 21458,
+   "title": "Sonic Advance"
+  },
+  {
+   "id": "gba/Pokemon - LeafGreen Version (USA, Europe) (Rev 1)",
+   "players": 21449,
+   "title": "Pokémon LeafGreen Version"
+  },
+  {
+   "id": "ps2/Ratchet & Clank (USA) (En,Fr,De,Es,It)",
+   "players": 20799,
+   "title": "Ratchet & Clank"
+  },
+  {
+   "id": "megadrive/Bare Knuckle - Ikari no Tekken ~ Streets of Rage (World) (Rev A)",
+   "players": 20652,
+   "title": "Streets of Rage"
+  },
+  {
+   "id": "megadrive/Streets of Rage 2 (USA)",
+   "players": 20361,
+   "title": "Streets of Rage 2"
+  },
+  {
+   "id": "snes/Super Mario Kart (USA)",
+   "players": 20239,
+   "title": "Super Mario Kart"
+  },
+  {
+   "id": "nes/Super Mario Bros. 2 (USA) (Rev 1)",
+   "players": 19588,
+   "title": "Super Mario Bros. 2"
+  },
+  {
+   "id": "gb/Tetris (World) (Rev 1)",
+   "players": 19269,
+   "title": "Tetris"
+  },
+  {
+   "id": "gb/Kirby's Dream Land (USA, Europe)",
+   "players": 19195,
+   "title": "Kirby's Dream Land"
+  },
+  {
+   "id": "dreamcast/Crazy Taxi",
+   "players": 19166,
+   "title": "Crazy Taxi"
+  },
+  {
+   "id": "ps2/Bully (USA)",
+   "players": 19013,
+   "title": "Bully"
+  },
+  {
+   "id": "snes/Super Mario RPG - Legend of the Seven Stars (USA)",
+   "players": 18856,
+   "title": "Super Mario RPG: Legend of the Seven Stars"
+  },
+  {
+   "id": "ps2/Burnout 3 - Takedown (USA)",
+   "players": 18823,
+   "title": "Burnout 3: Takedown"
+  },
+  {
+   "id": "psx/Spyro the Dragon (USA)",
+   "players": 18767,
+   "title": "Spyro the Dragon"
+  },
+  {
+   "id": "gba/Wario Land 4 (USA, Europe)",
+   "players": 18603,
+   "title": "Wario Land 4"
+  },
+  {
+   "id": "gba/Mario & Luigi - Superstar Saga (USA)",
+   "players": 18518,
+   "title": "Mario & Luigi: Superstar Saga"
+  },
+  {
+   "id": "snes/EarthBound (USA)",
+   "players": 18259,
+   "title": "EarthBound"
+  },
+  {
+   "id": "snes/Teenage Mutant Ninja Turtles IV - Turtles in Time (USA)",
+   "players": 17965,
+   "title": "Teenage Mutant Ninja Turtles IV: Turtles in Time"
+  },
+  {
+   "id": "psx/Parasite Eve (USA)",
+   "players": 17777,
+   "title": "Parasite Eve"
+  },
+  {
+   "id": "gba/Pokemon Pinball - Ruby & Sapphire (USA)",
+   "players": 17629,
+   "title": "Pokémon Pinball: Ruby & Sapphire"
+  },
+  {
+   "id": "nes/Mike Tyson's Punch-Out!! (Japan, USA) (Rev 1)",
+   "players": 17364,
+   "title": "Mike Tyson's Punch-Out!!"
+  },
+  {
+   "id": "gba/Castlevania - Circle of the Moon (USA)",
+   "players": 17150,
+   "title": "Castlevania: Circle of the Moon"
+  },
+  {
+   "id": "psx/CTR - Crash Team Racing (USA)",
+   "players": 16892,
+   "title": "Crash Team Racing"
+  },
+  {
+   "id": "gc/Super Mario Sunshine",
+   "players": 16531,
+   "title": "Super Mario Sunshine"
+  },
+  {
+   "id": "psx/Crash Bandicoot 2 - Cortex Strikes Back (USA)",
+   "players": 16207,
+   "title": "Crash Bandicoot 2: Cortex Strikes Back"
+  },
+  {
+   "id": "gba/Kirby & The Amazing Mirror (USA)",
+   "players": 15959,
+   "title": "Kirby & the Amazing Mirror"
+  },
+  {
+   "id": "gba/Legend of Zelda, The - A Link to the Past & Four Swords (USA)",
+   "players": 15825,
+   "title": "The Legend of Zelda: A Link to the Past & Four Swords"
+  },
+  {
+   "id": "nes/Mega Man 2 (USA)",
+   "players": 15642,
+   "title": "Mega Man 2"
+  },
+  {
+   "id": "nds/Pokemon - HeartGold Version (USA)",
+   "players": 15207,
+   "title": "Pokémon HeartGold Version"
+  },
+  {
+   "id": "neogeo/mslug",
+   "players": 15066,
+   "title": "Metal Slug: Super Vehicle-001"
+  },
+  {
+   "id": "gbc/Pokemon - Crystal Version (USA, Europe) (Rev 1)",
+   "players": 14985,
+   "title": "Pokémon Crystal Version"
+  },
+  {
+   "id": "nds/New Super Mario Bros. (USA)",
+   "players": 14945,
+   "title": "New Super Mario Bros."
+  },
+  {
+   "id": "nes/Ninja Gaiden (USA)",
+   "players": 14872,
+   "title": "Ninja Gaiden"
+  },
+  {
+   "id": "nes/Mega Man (USA)",
+   "players": 14698,
+   "title": "Mega Man"
+  },
+  {
+   "id": "snes/Donkey Kong Country 3 - Dixie Kong's Double Trouble! (USA) (En,Fr)",
+   "players": 14677,
+   "title": "Donkey Kong Country 3: Dixie Kong's Double Trouble!"
+  },
+  {
+   "id": "gba/Golden Sun (USA, Europe)",
+   "players": 14505,
+   "title": "Golden Sun"
+  },
+  {
+   "id": "snes/Super Castlevania IV (USA)",
+   "players": 14478,
+   "title": "Super Castlevania IV"
+  },
+  {
+   "id": "snes/Super Punch-Out!! (USA)",
+   "players": 14444,
+   "title": "Super Punch-Out!!"
+  },
+  {
+   "id": "psx/Resident Evil 3 - Nemesis (USA)",
+   "players": 14237,
+   "title": "Resident Evil 3: Nemesis"
+  },
+  {
+   "id": "nes/Metroid (USA)",
+   "players": 14146,
+   "title": "Metroid"
+  },
+  {
+   "id": "n64/Legend of Zelda, The - Ocarina of Time (USA) (Rev 2)",
+   "players": 13686,
+   "title": "The Legend of Zelda: Ocarina of Time"
+  },
+  {
+   "id": "psx/Resident Evil 2 - Dual Shock Ver. (USA)",
+   "players": 13555,
+   "title": "Resident Evil 2"
+  },
+  {
+   "id": "psx/Mega Man X4 (USA)",
+   "players": 13383,
+   "title": "Mega Man X4"
+  },
+  {
+   "id": "nes/Dr. Mario (Japan, USA) (Rev 1)",
+   "players": 13270,
+   "title": "Dr. Mario"
+  },
+  {
+   "id": "megadrive/Comix Zone (USA)",
+   "players": 13086,
+   "title": "Comix Zone"
+  },
+  {
+   "id": "megadrive/Castlevania - Bloodlines (USA)",
+   "players": 13082,
+   "title": "Castlevania: Bloodlines"
+  },
+  {
+   "id": "gb/Super Mario Land 2 - 6 Golden Coins (USA, Europe) (Rev 2)",
+   "players": 13019,
+   "title": "Super Mario Land 2: 6 Golden Coins"
+  },
+  {
+   "id": "megadrive/Aladdin (USA)",
+   "players": 12986,
+   "title": "Aladdin"
+  },
+  {
+   "id": "gc/Super Smash Bros. Melee",
+   "players": 12412,
+   "title": "Super Smash Bros. Melee"
+  },
+  {
+   "id": "gc/Mario Kart - Double Dash!!",
+   "players": 12296,
+   "title": "Mario Kart: Double Dash!!"
+  },
+  {
+   "id": "snes/Street Fighter II Turbo (USA) (Rev 1)",
+   "players": 12271,
+   "title": "Street Fighter II Turbo"
+  },
+  {
+   "id": "dreamcast/Sonic Adventure",
+   "players": 12263,
+   "title": "Sonic Adventure"
+  },
+  {
+   "id": "snes/Zombies Ate My Neighbors (USA)",
+   "players": 12064,
+   "title": "Zombies Ate My Neighbors"
+  },
+  {
+   "id": "n64/Paper Mario (USA)",
+   "players": 12022,
+   "title": "Paper Mario"
+  },
+  {
+   "id": "snes/Super Bomberman (USA)",
+   "players": 12014,
+   "title": "Super Bomberman"
+  },
+  {
+   "id": "snes/Kirby's Dream Land 3 (USA)",
+   "players": 11937,
+   "title": "Kirby's Dream Land 3"
+  },
+  {
+   "id": "snes/Secret of Mana (USA)",
+   "players": 11936,
+   "title": "Secret of Mana"
+  },
+  {
+   "id": "megadrive/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA)",
+   "players": 11736,
+   "title": "Teenage Mutant Ninja Turtles: The Hyperstone Heist"
+  },
+  {
+   "id": "nds/Pokemon - Black Version (USA, Europe) (NDSi Enhanced)",
+   "players": 11649,
+   "title": "Pokémon Black Version"
+  },
+  {
+   "id": "pcenginecd/Akumajou Dracula X - Chi no Rondo (Japan) (FABT, FACT)",
+   "players": 11633,
+   "title": "Akumajou Dracula X - Chi No Rondo"
+  },
+  {
+   "id": "megadrive/Golden Axe (World) (Rev A)",
+   "players": 11612,
+   "title": "Golden Axe"
+  },
+  {
+   "id": "psx/MediEvil (USA)",
+   "players": 11427,
+   "title": "MediEvil"
+  },
+  {
+   "id": "n64/Banjo-Kazooie (USA) (Rev 1)",
+   "players": 11426,
+   "title": "Banjo-Kazooie"
+  },
+  {
+   "id": "mastersystem/Sonic The Hedgehog (USA, Europe, Brazil)",
+   "players": 11150,
+   "title": "Sonic the Hedgehog"
+  },
+  {
+   "id": "psx/Ape Escape (USA)",
+   "players": 11101,
+   "title": "Ape Escape"
+  },
+  {
+   "id": "psx/Resident Evil - Director's Cut - Dual Shock Ver. (USA)",
+   "players": 11036,
+   "title": "Resident Evil: Director's Cut"
+  },
+  {
+   "id": "n64/Legend of Zelda, The - Majora's Mask (USA)",
+   "players": 10966,
+   "title": "The Legend of Zelda: Majora's Mask"
+  },
+  {
+   "id": "megadrive/Michael Jackson's Moonwalker (Japan, USA)",
+   "players": 10964,
+   "title": "Michael Jackson's Moonwalker"
+  },
+  {
+   "id": "nes/Excitebike (Japan, USA)",
+   "players": 10778,
+   "title": "Excitebike"
+  },
+  {
+   "id": "n64/Donkey Kong 64 (USA)",
+   "players": 10701,
+   "title": "Donkey Kong 64"
+  },
+  {
+   "id": "snes/Aero Fighters (USA)",
+   "players": 10414,
+   "title": "Aero Fighters"
+  },
+  {
+   "id": "gba/Mother 3 (Japan) [T-En by Chewy & Jeffman & Tomato v1.3]",
+   "players": 10332,
+   "title": "Mother 3"
+  },
+  {
+   "id": "gba/Castlevania - Harmony of Dissonance (USA)",
+   "players": 10300,
+   "title": "Castlevania: Harmony of Dissonance"
+  },
+  {
+   "id": "gbc/Tetris DX (World) (SGB Enhanced) (GB Compatible)",
+   "players": 10201,
+   "title": "Tetris DX"
+  },
+  {
+   "id": "gba/Mega Man Zero (USA, Europe)",
+   "players": 10188,
+   "title": "Mega Man Zero"
+  },
+  {
+   "id": "gb/Donkey Kong (Japan, USA) (SGB Enhanced)",
+   "players": 10169,
+   "title": "Donkey Kong"
+  },
+  {
+   "id": "psx/R4 - Ridge Racer Type 4 (USA)",
+   "players": 9948,
+   "title": "R4: Ridge Racer Type 4"
+  },
+  {
+   "id": "snes/Goof Troop (USA)",
+   "players": 9800,
+   "title": "Goof Troop"
+  },
+  {
+   "id": "n64/GoldenEye 007 (USA)",
+   "players": 9664,
+   "title": "GoldenEye 007"
+  },
+  {
+   "id": "gba/Alien Hominid (Europe) (En,Fr,De,Es,It)",
+   "players": 9657,
+   "title": "Alien Hominid"
+  },
+  {
+   "id": "nes/Teenage Mutant Ninja Turtles (USA)",
+   "players": 9588,
+   "title": "Teenage Mutant Ninja Turtles"
+  },
+  {
+   "id": "psx/PaRappa the Rapper (USA) (En,Fr,De,Es,It)",
+   "players": 9506,
+   "title": "PaRappa the Rapper"
+  },
+  {
+   "id": "nes/Double Dragon (USA)",
+   "players": 9496,
+   "title": "Double Dragon"
+  },
+  {
+   "id": "snes/Contra III - The Alien Wars (USA)",
+   "players": 9447,
+   "title": "Contra III: The Alien Wars"
+  },
+  {
+   "id": "gbc/Pokemon Pinball (USA, Australia) (Rumble Version) (SGB Enhanced) (GB Compatible)",
+   "players": 9439,
+   "title": "Pokémon Pinball"
+  },
+  {
+   "id": "n64/Kirby 64 - The Crystal Shards (USA)",
+   "players": 9405,
+   "title": "Kirby 64: The Crystal Shards"
+  },
+  {
+   "id": "nds/Castlevania - Dawn of Sorrow (USA)",
+   "players": 9351,
+   "title": "Castlevania: Dawn of Sorrow"
+  },
+  {
+   "id": "psx/Spyro 2 - Ripto's Rage! (USA)",
+   "players": 9318,
+   "title": "Spyro 2: Ripto's Rage!"
+  },
+  {
+   "id": "gbc/Legend of Zelda, The - Oracle of Ages (USA, Australia)",
+   "players": 9273,
+   "title": "The Legend of Zelda: Oracle of Ages"
+  },
+  {
+   "id": "ps2/Burnout Revenge (USA)",
+   "players": 9208,
+   "title": "Burnout Revenge"
+  },
+  {
+   "id": "snes/Earthworm Jim (USA)",
+   "players": 9180,
+   "title": "Earthworm Jim"
+  },
+  {
+   "id": "psx/Medal of Honor (USA)",
+   "players": 9160,
+   "title": "Medal of Honor"
+  },
+  {
+   "id": "megadrive/Castle of Illusion Starring Mickey Mouse (USA, Europe)",
+   "players": 9114,
+   "title": "Castle of Illusion Starring Mickey Mouse"
+  },
+  {
+   "id": "snes/Top Gear (USA)",
+   "players": 9017,
+   "title": "Top Gear"
+  },
+  {
+   "id": "n64/Diddy Kong Racing (USA) (En,Fr) (Rev 1)",
+   "players": 9005,
+   "title": "Diddy Kong Racing"
+  },
+  {
+   "id": "gb/Donkey Kong Land (USA, Europe) (SGB Enhanced)",
+   "players": 8980,
+   "title": "Donkey Kong Land"
+  },
+  {
+   "id": "gba/Super Mario Advance 2 - Super Mario World (USA, Australia)",
+   "players": 8858,
+   "title": "Super Mario World: Super Mario Advance 2"
+  },
+  {
+   "id": "psx/Mega Man Legends (USA)",
+   "players": 8753,
+   "title": "Mega Man Legends"
+  },
+  {
+   "id": "gb/Legend of Zelda, The - Link's Awakening (USA, Europe) (Rev 2)",
+   "players": 8738,
+   "title": "The Legend of Zelda: Link's Awakening"
+  },
+  {
+   "id": "nes/Battletoads (USA)",
+   "players": 8733,
+   "title": "Battletoads"
+  },
+  {
+   "id": "psx/Rayman (USA)",
+   "players": 8673,
+   "title": "Rayman"
+  },
+  {
+   "id": "snes/Mega Man 7 (USA)",
+   "players": 8639,
+   "title": "Mega Man 7"
+  },
+  {
+   "id": "megadrive/Altered Beast (USA, Europe)",
+   "players": 8636,
+   "title": "Altered Beast"
+  },
+  {
+   "id": "gba/Super Mario Advance (USA, Europe)",
+   "players": 8631,
+   "title": "Super Mario Advance"
+  },
+  {
+   "id": "snes/Mega Man X2 (USA)",
+   "players": 8577,
+   "title": "Mega Man X2"
+  },
+  {
+   "id": "snes/Sunset Riders (USA)",
+   "players": 8556,
+   "title": "Sunset Riders"
+  },
+  {
+   "id": "gba/Pokemon - Ruby Version (USA, Europe) (Rev 2)",
+   "players": 8511,
+   "title": "Pokémon Ruby Version"
+  },
+  {
+   "id": "dreamcast/Sonic Adventure 2",
+   "players": 8454,
+   "title": "Sonic Adventure 2"
+  },
+  {
+   "id": "gba/Pokemon Mystery Dungeon - Red Rescue Team (USA, Australia)",
+   "players": 8427,
+   "title": "Pokémon Mystery Dungeon: Red Rescue Team"
+  },
+  {
+   "id": "psx/Einhaender (USA)",
+   "players": 8407,
+   "title": "Einhänder"
+  },
+  {
+   "id": "nds/Sonic Rush (USA) (En,Ja,Fr,De,Es,It)",
+   "players": 8351,
+   "title": "Sonic Rush"
+  },
+  {
+   "id": "gba/Mario Pinball Land (USA, Australia)",
+   "players": 8309,
+   "title": "Mario Pinball Land"
+  },
+  {
+   "id": "nds/Pokemon - Platinum Version (USA) (Rev 1)",
+   "players": 8294,
+   "title": "Pokémon Platinum Version"
+  },
+  {
+   "id": "nes/Balloon Fight (USA)",
+   "players": 8278,
+   "title": "Balloon Fight"
+  },
+  {
+   "id": "snes/Bust-A-Move (USA)",
+   "players": 8214,
+   "title": "Bust-A-Move"
+  },
+  {
+   "id": "snes/Arkanoid - Doh It Again (USA)",
+   "players": 8195,
+   "title": "Arkanoid: Doh It Again"
+  },
+  {
+   "id": "psx/Gran Turismo 2 (USA) (Arcade Mode) (Rev 1)",
+   "players": 8146,
+   "title": "Gran Turismo 2 (Arcade Mode)"
+  },
+  {
+   "id": "psx/Legend of Dragoon, The (USA)",
+   "players": 8055,
+   "title": "The Legend of Dragoon"
+  },
+  {
+   "id": "nes/Tiny Toon Adventures (USA)",
+   "players": 8012,
+   "title": "Tiny Toon Adventures"
+  },
+  {
+   "id": "nes/Castlevania III - Dracula's Curse (USA)",
+   "players": 8004,
+   "title": "Castlevania III: Dracula's Curse"
+  },
+  {
+   "id": "gbc/Legend of Zelda, The - Oracle of Seasons (USA, Australia)",
+   "players": 7956,
+   "title": "The Legend of Zelda: Oracle of Seasons"
+  },
+  {
+   "id": "psx/Spider-Man (USA)",
+   "players": 7895,
+   "title": "Spider-Man"
+  },
+  {
+   "id": "nds/Kirby Super Star Ultra (USA)",
+   "players": 7858,
+   "title": "Kirby Super Star Ultra"
+  },
+  {
+   "id": "psx/Digimon World (USA)",
+   "players": 7849,
+   "title": "Digimon World"
+  },
+  {
+   "id": "psx/Gran Turismo (USA) (Rev 1)",
+   "players": 7847,
+   "title": "Gran Turismo"
+  },
+  {
+   "id": "snes/Mega Man X3 (USA)",
+   "players": 7645,
+   "title": "Mega Man X3"
+  },
+  {
+   "id": "gba/Sonic Advance 2 (USA) (En,Ja,Fr,De,Es,It)",
+   "players": 7634,
+   "title": "Sonic Advance 2"
+  },
+  {
+   "id": "nes/Mega Man 3 (USA)",
+   "players": 7593,
+   "title": "Mega Man 3"
+  },
+  {
+   "id": "n64/Star Fox 64 (USA) (Rev 1)",
+   "players": 7555,
+   "title": "Star Fox 64"
+  },
+  {
+   "id": "nes/Batman - The Video Game (USA)",
+   "players": 7535,
+   "title": "Batman: The Video Game"
+  },
+  {
+   "id": "snes/ActRaiser (USA)",
+   "players": 7511,
+   "title": "ActRaiser"
+  },
+  {
+   "id": "nes/Adventure Island (USA)",
+   "players": 7443,
+   "title": "Adventure Island"
+  },
+  {
+   "id": "nes/Zelda II - The Adventure of Link (USA)",
+   "players": 7390,
+   "title": "Zelda II: The Adventure of Link"
+  },
+  {
+   "id": "nes/Bubble Bobble (USA)",
+   "players": 7363,
+   "title": "Bubble Bobble"
+  },
+  {
+   "id": "nes/Adventure Island II (USA)",
+   "players": 7252,
+   "title": "Adventure Island II"
+  },
+  {
+   "id": "gba/Sonic Advance 3 (USA) (En,Ja,Fr,De,Es,It)",
+   "players": 7239,
+   "title": "Sonic Advance 3"
+  },
+  {
+   "id": "neogeo/mslugx",
+   "players": 7236,
+   "title": "Metal Slug X: Super Vehicle-001"
+  },
+  {
+   "id": "gb/Castlevania - The Adventure (USA)",
+   "players": 7231,
+   "title": "Castlevania: The Adventure"
+  },
+  {
+   "id": "nds/Super Mario 64 DS (USA) (Rev 1)",
+   "players": 7195,
+   "title": "Super Mario 64 DS"
+  },
+  {
+   "id": "megadrive/Earthworm Jim (USA)",
+   "players": 7186,
+   "title": "Earthworm Jim"
+  },
+  {
+   "id": "nds/Tetris DS (USA)",
+   "players": 7153,
+   "title": "Tetris DS"
+  },
+  {
+   "id": "megadrive/Adventures of Batman & Robin, The (USA)",
+   "players": 7127,
+   "title": "The Adventures of Batman & Robin"
+  },
+  {
+   "id": "snes/Tetris & Dr. Mario (USA)",
+   "players": 7087,
+   "title": "Tetris & Dr. Mario"
+  },
+  {
+   "id": "psx/Tony Hawk's Pro Skater (USA)",
+   "players": 7086,
+   "title": "Tony Hawk's Pro Skater"
+  },
+  {
+   "id": "gba/Final Fantasy I & II - Dawn of Souls (USA)",
+   "players": 7079,
+   "title": "Final Fantasy I & II: Dawn of Souls"
+  },
+  {
+   "id": "nes/Chip 'n Dale - Rescue Rangers (USA)",
+   "players": 7069,
+   "title": "Chip 'N Dale: Rescue Rangers"
+  },
+  {
+   "id": "megadrive/Gunstar Heroes (USA)",
+   "players": 7022,
+   "title": "Gunstar Heroes"
+  },
+  {
+   "id": "gc/Legend of Zelda, The - The Wind Waker",
+   "players": 7005,
+   "title": "The Legend of Zelda: The Wind Waker"
+  },
+  {
+   "id": "mastersystem/Alex Kidd in Miracle World (World) (Sega Ages)",
+   "players": 6994,
+   "title": "Alex Kidd in Miracle World"
+  },
+  {
+   "id": "psx/Tomba! (USA)",
+   "players": 6982,
+   "title": "Tomba!"
+  },
+  {
+   "id": "megadrive/Streets of Rage 3 (USA)",
+   "players": 6867,
+   "title": "Streets of Rage 3"
+  },
+  {
+   "id": "psx/Dino Crisis 2 (USA)",
+   "players": 6866,
+   "title": "Dino Crisis 2"
+  },
+  {
+   "id": "snes/Star Fox (USA) (Rev 2)",
+   "players": 6790,
+   "title": "Star Fox"
+  },
+  {
+   "id": "gb/Kirby's Dream Land 2 (USA, Europe) (SGB Enhanced)",
+   "players": 6766,
+   "title": "Kirby's Dream Land 2"
+  },
+  {
+   "id": "psx/Tekken (USA)",
+   "players": 6759,
+   "title": "Tekken"
+  },
+  {
+   "id": "nes/Felix the Cat (USA)",
+   "players": 6727,
+   "title": "Felix the Cat"
+  },
+  {
+   "id": "neogeo/mslug2",
+   "players": 6717,
+   "title": "Metal Slug 2: Super Vehicle-001/II"
+  },
+  {
+   "id": "megadrive/Contra - Hard Corps (USA, Korea)",
+   "players": 6713,
+   "title": "Contra: Hard Corps"
+  },
+  {
+   "id": "psx/Suikoden II (USA)",
+   "players": 6709,
+   "title": "Suikoden II"
+  },
+  {
+   "id": "psx/Tekken 2 (USA) (Rev 1)",
+   "players": 6694,
+   "title": "Tekken 2"
+  }
+ ]
+}
