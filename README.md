@@ -54,6 +54,11 @@ independent.
 Two fonts are vendored into `docs/assets/fonts/` (52 KB, latin subset) so the site has no external
 requests: **VT323** for display type and **IBM Plex Mono** for everything meant to be read.
 
+Only the search row is pinned while scrolling — the system filters wrap to two rows and would eat
+too much of the viewport if the whole bar stayed. The sticky element sits at page level rather than
+inside the toolbar, since a sticky element is confined to its parent's box and would otherwise
+unstick almost immediately.
+
 The CRT scanline and vignette texture is painted on the **body background, behind the content**,
 rather than as an overlay on top of it. Anything that paints an opaque surface — card artwork, the
 detail panel — therefore covers it completely, so no scanline ever crosses a piece of box art. The

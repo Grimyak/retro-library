@@ -24,16 +24,18 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; color:var(--text); font:14px/1.6 var(--mono); -webkit-font-smoothing:antialiased;
+  /* the phosphor bloom every piece of text gets; brighter elements layer their own on top */
+  text-shadow:0 0 4px rgba(77,245,143,.22);
   /* CRT texture lives *behind* the content, never on top of it: artwork and the
      detail panel paint their own opaque background and stay perfectly clean. */
   background-color:var(--bg);
   background-image:
-    radial-gradient(ellipse at 50% 38%,transparent 58%,rgba(0,0,0,.55) 100%),
-    repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.45) 2px 3px);
+    radial-gradient(ellipse at 50% 40%,transparent 66%,rgba(0,0,0,.42) 100%),
+    repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.20) 2px 4px);
   background-attachment:fixed;
 }
 @media (prefers-reduced-motion:reduce){
-  body{background-image:radial-gradient(ellipse at 50% 38%,transparent 58%,rgba(0,0,0,.55) 100%)}
+  body{background-image:radial-gradient(ellipse at 50% 40%,transparent 66%,rgba(0,0,0,.42) 100%)}
 }
 
 .wrap{max-width:var(--wrap); margin:0 auto; padding:0 24px}
@@ -62,10 +64,17 @@ button,select,input{font:inherit; color:inherit}
 .stats div+div::before{content:"│"; color:var(--line2); margin-right:26px}
 
 /* ---------- toolbar ---------- */
-.toolbar{
-  position:sticky; top:0; z-index:30; padding:12px 0;
-  background:rgba(4,8,6,.94); border-bottom:1px solid var(--line2);
+.toolbar{border-bottom:1px solid var(--line2)}
+/* Only the search row stays put — the system pills wrap to two rows and would
+   eat a lot of the viewport if the whole bar were pinned. The sticky element is
+   full-bleed with the content column nested inside, so the pinned background
+   spans the viewport rather than stopping at the 1440px wrap. */
+.searchbar{
+  position:sticky; top:0; z-index:30; padding:11px 0;
+  background:rgba(4,8,6,.96); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
 }
+.row-systems{padding:10px 0 12px}
 .row{display:flex; gap:10px; align-items:center}
 .row-search{flex-wrap:wrap}
 
