@@ -43,10 +43,14 @@ button,select,input{font:inherit; color:inherit}
 
 /* ---------- hero ---------- */
 .hero{padding:44px 0 22px; border-bottom:1px solid var(--line2)}
-.hero h1{
-  margin:0; font-family:var(--display); font-weight:400;
-  font-size:clamp(44px,7vw,76px); line-height:.9; letter-spacing:.02em;
-  text-transform:uppercase; text-shadow:0 0 14px var(--glow), 0 0 40px rgba(77,245,143,.14);
+.hero h1{margin:0}
+/* The wordmark is block-letter art drawn as SVG rather than as text: relying on
+   a font's full-block glyph to tile pixel-perfectly proved unreliable — the
+   glyph is taller than a squashed line box, so rows overlapped, and gaps let
+   the scanline background break the letterforms apart. */
+.wordmark-svg{
+  display:block; width:min(100%,940px); height:auto; color:var(--text);
+  filter:drop-shadow(0 0 6px var(--glow)) drop-shadow(0 0 20px rgba(77,245,143,.20));
 }
 .stats{
   display:flex; flex-wrap:wrap; gap:0 26px; margin:20px 0 0;
