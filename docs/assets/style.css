@@ -25,7 +25,7 @@ html{-webkit-text-size-adjust:100%}
 body{
   margin:0; color:var(--text); font:14px/1.6 var(--mono); -webkit-font-smoothing:antialiased;
   /* the phosphor bloom every piece of text gets; brighter elements layer their own on top */
-  text-shadow:0 0 4px rgba(77,245,143,.22);
+  text-shadow:0 0 4px rgba(77,245,143,.12);
   /* CRT texture lives *behind* the content, never on top of it: artwork and the
      detail panel paint their own opaque background and stay perfectly clean. */
   background-color:var(--bg);
