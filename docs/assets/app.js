@@ -1,6 +1,10 @@
 (() => {
   "use strict";
   const $ = s => document.querySelector(s);
+  // Bind defensively: if markup and script ever fall out of step — a stale
+  // cached app.js against a newer index.html, say — a single missing element
+  // should not throw and leave the visitor with an error instead of a library.
+  const on = (sel, ev, fn) => { const el = $(sel); if (el) el.addEventListener(ev, fn); };
   const PAGE = 120;
 
   const state = {
@@ -105,20 +109,20 @@
 
   function bind() {
     let t;
-    $("#q").addEventListener("input", e => {
+    on("#q", "input", e => {
       $("#qclear").hidden = !e.target.value;
       clearTimeout(t);
       t = setTimeout(() => { state.q = e.target.value.trim().toLowerCase(); state.shown = PAGE; apply(); }, 130);
     });
-    $("#qclear").addEventListener("click", () => {
+    on("#qclear", "click", () => {
       $("#q").value = ""; $("#qclear").hidden = true;
       state.q = ""; state.shown = PAGE; apply(); $("#q").focus();
     });
-    $("#sort").addEventListener("change", e => { state.sort = e.target.value; state.shown = PAGE; apply(); });
-    $("#genre").addEventListener("change", e => { state.genre = e.target.value; state.shown = PAGE; apply(); });
+    on("#sort", "change", e => { state.sort = e.target.value; state.shown = PAGE; apply(); });
+    on("#genre", "change", e => { state.genre = e.target.value; state.shown = PAGE; apply(); });
 
 
-    $("#systems").addEventListener("click", e => {
+    on("#systems", "click", e => {
       const b = e.target.closest(".pill"); if (!b) return;
       const id = b.dataset.sys;
       state.sys.has(id) ? state.sys.delete(id) : state.sys.add(id);
@@ -126,14 +130,14 @@
       state.shown = PAGE; apply();
     });
 
-    $("#more").addEventListener("click", () => { state.shown += PAGE * 2; render(); });
-    $("#grid").addEventListener("click", e => {
+    on("#more", "click", () => { state.shown += PAGE * 2; render(); });
+    on("#grid", "click", e => {
       const c = e.target.closest(".card"); if (c) open(+c.dataset.i);
     });
-    $("#gotm").addEventListener("click", e => {
+    on("#gotm", "click", e => {
       const c = e.target.closest(".gotm-card"); if (c) open(+c.dataset.i);
     });
-    $("#modal").addEventListener("click", e => { if (e.target.dataset.close !== undefined) close(); });
+    on("#modal", "click", e => { if (e.target.dataset.close !== undefined) close(); });
     document.addEventListener("keydown", e => {
       if (e.key === "Escape" && !$("#modal").hidden) close();
       else if (e.key === "/" && document.activeElement !== $("#q")) { e.preventDefault(); $("#q").focus(); }

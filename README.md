@@ -19,6 +19,15 @@ community ratings, descriptions and release metadata.
 - Deep-linkable — each game gets its own URL fragment
 - No framework, no build step, no tracking. One HTML file, one CSS file, one JS file, one JSON payload.
 
+### Cache correctness
+
+`app.js` and `style.css` are referenced with a content hash (`app.js?v=851fa7de`), stamped into
+`index.html` by `build_site.py` on every build. HTML, CSS and JS are cached independently by the
+host, so without this a stale script can be paired with newer markup — which is exactly how removing
+an element from the page turned into a "couldn't load the catalogue" error on an already-warm phone
+while every fresh browser was fine. Event binding is also defensive: a missing element is skipped
+rather than throwing and taking the whole page down.
+
 ### Game of the month
 
 The pick is derived in the browser from the current month rather than baked in at build time, so

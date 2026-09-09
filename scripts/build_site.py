@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Emit the compact games.json the site loads."""
-import json, os, glob, collections, datetime
+import json, os, re, glob, hashlib, collections, datetime
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SITE = os.path.join(ROOT, "docs")
@@ -70,10 +70,24 @@ def main():
     p = os.path.join(SITE, "data", "games.json")
     json.dump(payload, open(p, "w"), separators=(",", ":"), ensure_ascii=False)
 
+    # Stamp app.js/style.css with a content hash. HTML, CSS and JS are cached
+    # independently by the host, so without this a stale script can be paired
+    # with newer markup — which is exactly how a removed element turned into a
+    # "couldn't load the catalogue" error on an already-warm phone.
+    idx = os.path.join(SITE, "index.html")
+    page = open(idx, encoding="utf-8").read()
+    stamped = []
+    for asset in ("assets/app.js", "assets/style.css"):
+        digest = hashlib.sha1(open(os.path.join(SITE, asset), "rb").read()).hexdigest()[:8]
+        new, n = re.subn(rf'{re.escape(asset)}(\?v=[0-9a-f]+)?', f"{asset}?v={digest}", page)
+        page = new; stamped.append(f"{asset}?v={digest}" if n else f"{asset} NOT REFERENCED")
+    open(idx, "w", encoding="utf-8").write(page)
+
     st = payload["stats"]
     if dropped: print(f"  dropped {dropped} refs to artwork that failed to convert")
     if great: print(f"  flagged {matched}/{len(great)} RetroAchievements top-200 games")
     if orphans: print(f"  pruned {len(orphans)} orphaned image(s), {freed/2**20:.1f} MB")
+    for a in stamped: print(f"  stamped {a}")
     print(f"games.json: {os.path.getsize(p)/1024:.0f} KB")
     print(f"  {st['games']} games / {len(systems)} systems / {st['bytes']/2**30:.0f} GB"
           f" / {st['rated']} rated / {len(genres)} genres")

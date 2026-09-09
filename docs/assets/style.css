@@ -24,9 +24,8 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; color:var(--text); font:14px/1.6 var(--mono); -webkit-font-smoothing:antialiased;
-  /* the phosphor bloom every piece of text gets: a tight core plus a wider,
-     dimmer halo. Brighter elements layer their own on top. */
-  text-shadow:0 0 4px rgba(150,255,200,.55), 0 0 13px rgba(77,245,143,.34);
+  /* the phosphor bloom every piece of text gets; brighter elements layer their own on top */
+  text-shadow:0 0 4px rgba(77,245,143,.22);
   /* CRT texture lives *behind* the content, never on top of it: artwork and the
      detail panel paint their own opaque background and stay perfectly clean. */
   background-color:var(--bg);
@@ -53,7 +52,7 @@ button,select,input{font:inherit; color:inherit}
    the scanline background break the letterforms apart. */
 .wordmark-svg{
   display:block; width:min(100%,640px); height:auto; color:var(--text);
-  filter:drop-shadow(0 0 5px rgba(150,255,200,.6)) drop-shadow(0 0 18px rgba(77,245,143,.32));
+  filter:drop-shadow(0 0 6px var(--glow)) drop-shadow(0 0 20px rgba(77,245,143,.20));
 }
 .stats{
   display:flex; flex-wrap:wrap; gap:0 26px; margin:20px 0 0;
