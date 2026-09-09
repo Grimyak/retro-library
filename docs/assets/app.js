@@ -54,9 +54,58 @@
     $("#generated").textContent = `Catalogue generated ${DATA.generated}.`;
 
     applyView();
+    renderMonthly();
     bind();
     readHash();
     apply();
+  }
+
+  // ---------- game of the month ----------
+  // Chosen from the current month rather than baked in at build time, so it
+  // rotates on its own without a rebuild. FNV-1a over "YYYY-MM" keeps the pick
+  // stable for the whole month and identical for every visitor (UTC, so it
+  // doesn't flip a day early depending on where you are).
+  function monthlyPick() {
+    const now = new Date();
+    const key = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, "0")}`;
+    const pool = DATA.games
+      .filter(g => (g.r || 0) >= 90 && g.c && g.x)
+      // plain codepoint order, not localeCompare - that is locale-dependent and
+      // would hand different visitors a different game for the same month
+      .sort((a, b) => {
+        const x = a.s + "/" + a.f, y = b.s + "/" + b.f;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+    if (!pool.length) return null;
+    let h = 2166136261;
+    for (let i = 0; i < key.length; ++i) {
+      h ^= key.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    const g = pool[(h >>> 0) % pool.length];
+    return { g, label: now.toLocaleString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" }) };
+  }
+
+  function renderMonthly() {
+    const pick = monthlyPick();
+    const el = $("#gotm");
+    if (!pick) { el.hidden = true; return; }
+    const { g, label } = pick;
+    const i = DATA.games.indexOf(g);
+    const facts = [SYS[g.s].name, g.y, g.g, g.d].filter(Boolean).join("  ·  ");
+    el.innerHTML = `
+      <button class="gotm-card" data-i="${i}">
+        <span class="gotm-art"><img src="img/${g.c}${V}" alt="" loading="eager" decoding="async"></span>
+        <span class="gotm-body">
+          <span class="gotm-label">Game of the month — ${esc(label)}</span>
+          ${g.l ? `<img class="gotm-logo" src="img/${g.l}${V}" alt="${esc(g.t)}">`
+                : `<span class="gotm-title">${esc(g.t)}</span>`}
+          <span class="gotm-meta">${esc(facts)}</span>
+          <span class="gotm-score"><span class="meter">${meter(g.r)}</span> ${g.r}/100</span>
+          <span class="gotm-desc">${esc(g.x)}</span>
+        </span>
+      </button>`;
+    el.hidden = false;
   }
 
   function applyView() {
@@ -96,6 +145,9 @@
     $("#more").addEventListener("click", () => { state.shown += PAGE * 2; render(); });
     $("#grid").addEventListener("click", e => {
       const c = e.target.closest(".card"); if (c) open(+c.dataset.i);
+    });
+    $("#gotm").addEventListener("click", e => {
+      const c = e.target.closest(".gotm-card"); if (c) open(+c.dataset.i);
     });
     $("#modal").addEventListener("click", e => { if (e.target.dataset.close !== undefined) close(); });
     document.addEventListener("keydown", e => {

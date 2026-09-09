@@ -232,3 +232,42 @@ select:hover{border-color:var(--mid)}
   .sheet-disc{width:80px; height:80px}
   .caps{grid-template-columns:1fr}
 }
+
+/* ---------- game of the month ---------- */
+.gotm{padding:26px 24px 0}
+.gotm-card{
+  display:flex; gap:22px; width:100%; text-align:left; cursor:pointer;
+  padding:18px; border:1px solid var(--line2); background:var(--surface);
+  border-radius:0; transition:border-color .13s, box-shadow .13s;
+}
+.gotm-card:hover, .gotm-card:focus-visible{
+  border-color:var(--mid); box-shadow:0 0 22px var(--glow); outline:none;
+}
+.gotm-art{
+  flex:0 0 168px; align-self:flex-start; border:1px solid var(--line);
+  background:var(--bg2); display:block;
+}
+.gotm-art img{width:100%; display:block}
+.gotm-body{display:flex; flex-direction:column; gap:9px; min-width:0; flex:1 1 auto}
+.gotm-label{
+  font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+}
+.gotm-label::before{content:"▚ "; color:var(--line2)}
+.gotm-logo{max-width:min(320px,80%); max-height:64px; object-fit:contain; object-position:left center}
+.gotm-title{
+  font-family:var(--display); font-size:32px; line-height:1;
+  text-transform:uppercase; text-shadow:0 0 12px var(--glow);
+}
+.gotm-meta{font-size:12px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em}
+.gotm-score{font-size:13px; letter-spacing:.04em; font-variant-numeric:tabular-nums}
+.gotm-score .meter{color:var(--text); text-shadow:0 0 8px var(--glow)}
+.gotm-desc{
+  font-size:13px; line-height:1.7; color:var(--mid);
+  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;
+}
+@media (max-width:640px){
+  .gotm{padding:18px 15px 0}
+  .gotm-card{flex-direction:column; gap:14px}
+  .gotm-art{flex-basis:auto; max-width:150px}
+  .gotm-desc{-webkit-line-clamp:6}
+}

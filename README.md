@@ -8,6 +8,8 @@ community ratings, descriptions and release metadata.
 
 ## What it does
 
+- **Game of the month** — a featured pick above the grid, chosen from the 478 games rated 90+
+  that have a cover, logo and description
 - Grid of every game, switchable between **flat box art** and **3D boxes**
 - Sort A–Z, by rating, by release year, or by file size
 - Filter by system (multi-select) and genre; free-text search across titles,
@@ -16,6 +18,18 @@ community ratings, descriptions and release metadata.
   rating, full release facts, description, and screenshot + title screen side by side
 - Deep-linkable — each game gets its own URL fragment
 - No framework, no build step, no tracking. One HTML file, one CSS file, one JS file, one JSON payload.
+
+### Game of the month
+
+The pick is derived in the browser from the current month rather than baked in at build time, so
+it rotates on its own and the site never needs rebuilding to stay current. An FNV-1a hash of
+`YYYY-MM` indexes into the eligible pool, which keeps the choice stable for the whole month and
+identical for every visitor.
+
+Two details matter for that last guarantee: the month comes from **UTC** so it doesn't turn over a
+day early depending on where you are, and the pool is sorted by plain codepoint order rather than
+`localeCompare`, which is locale-dependent and would otherwise hand different visitors a different
+game for the same month.
 
 ## Design
 
