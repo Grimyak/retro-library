@@ -1,4 +1,4 @@
-# Retro Library
+# Grimys Retro Library
 
 A static, browsable catalogue of a personal retro game collection — **1,698 games across 17
 systems**, with box art, 3D boxes, cartridge and disc scans, screenshots, title screens, logos,
