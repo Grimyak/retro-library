@@ -3,14 +3,8 @@
   const $ = s => document.querySelector(s);
   const PAGE = 120;
 
-  const store = {
-    get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch {} },
-  };
-
   const state = {
     q:"", sys:new Set(), genre:"", sort:"title", shown:PAGE,
-    view: store.get("view", "cover") === "box3d" ? "box3d" : "cover",
   };
   let DATA, SYS = {}, view = [];
   // Artwork keeps its filename across re-scrapes — only the bytes change — so a
@@ -53,7 +47,6 @@
     V = "?v=" + encodeURIComponent(DATA.generated);
     $("#generated").textContent = `Catalogue generated ${DATA.generated}.`;
 
-    applyView();
     renderMonthly();
     bind();
     readHash();
@@ -110,12 +103,6 @@
     el.hidden = false;
   }
 
-  function applyView() {
-    $("#grid").classList.toggle("box3d", state.view === "box3d");
-    document.querySelectorAll("#view button").forEach(b =>
-      b.setAttribute("aria-pressed", b.dataset.view === state.view));
-  }
-
   function bind() {
     let t;
     $("#q").addEventListener("input", e => {
@@ -130,11 +117,6 @@
     $("#sort").addEventListener("change", e => { state.sort = e.target.value; state.shown = PAGE; apply(); });
     $("#genre").addEventListener("change", e => { state.genre = e.target.value; state.shown = PAGE; apply(); });
 
-    $("#view").addEventListener("click", e => {
-      const b = e.target.closest("button[data-view]"); if (!b) return;
-      state.view = b.dataset.view; store.set("view", state.view);
-      applyView(); render();
-    });
 
     $("#systems").addEventListener("click", e => {
       const b = e.target.closest(".pill"); if (!b) return;
@@ -195,8 +177,7 @@
   }
 
   function card(g) {
-    // fall back to the other artwork style when the preferred one is missing
-    const src = state.view === "box3d" ? (g.b || g.c) : (g.c || g.b);
+    const src = g.c || g.b;          // flat cover, falling back to the 3D box
     const art = src
       ? `<img src="img/${src}${V}" alt="" loading="lazy" decoding="async">`
       : `<span class="noart">No artwork</span>`;

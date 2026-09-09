@@ -24,8 +24,9 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; color:var(--text); font:14px/1.6 var(--mono); -webkit-font-smoothing:antialiased;
-  /* the phosphor bloom every piece of text gets; brighter elements layer their own on top */
-  text-shadow:0 0 4px rgba(77,245,143,.22);
+  /* the phosphor bloom every piece of text gets: a tight core plus a wider,
+     dimmer halo. Brighter elements layer their own on top. */
+  text-shadow:0 0 4px rgba(150,255,200,.55), 0 0 13px rgba(77,245,143,.34);
   /* CRT texture lives *behind* the content, never on top of it: artwork and the
      detail panel paint their own opaque background and stay perfectly clean. */
   background-color:var(--bg);
@@ -51,8 +52,8 @@ button,select,input{font:inherit; color:inherit}
    glyph is taller than a squashed line box, so rows overlapped, and gaps let
    the scanline background break the letterforms apart. */
 .wordmark-svg{
-  display:block; width:min(100%,940px); height:auto; color:var(--text);
-  filter:drop-shadow(0 0 6px var(--glow)) drop-shadow(0 0 20px rgba(77,245,143,.20));
+  display:block; width:min(100%,640px); height:auto; color:var(--text);
+  filter:drop-shadow(0 0 5px rgba(150,255,200,.6)) drop-shadow(0 0 18px rgba(77,245,143,.32));
 }
 .stats{
   display:flex; flex-wrap:wrap; gap:0 26px; margin:20px 0 0;
@@ -110,17 +111,9 @@ select{
   text-transform:uppercase; font-size:12.5px; letter-spacing:.04em;
 }
 select:hover{border-color:var(--mid)}
+#genre{min-width:14rem}
+#sort{min-width:11rem}
 
-.seg{display:inline-flex; border:1px solid var(--line2); flex:0 0 auto}
-.seg button{
-  border:0; background:var(--surface); color:var(--dim); cursor:pointer;
-  padding:9px 12px; display:flex; align-items:center; gap:6px;
-  font-size:12.5px; text-transform:uppercase; letter-spacing:.04em;
-}
-.seg button+button{border-left:1px solid var(--line2)}
-.seg button:hover{color:var(--text)}
-.seg button[aria-pressed="true"]{background:var(--mid); color:#020403; font-weight:600}
-.seg svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.7}
 
 .row-systems{margin-top:9px; flex-wrap:wrap; gap:7px}
 .pill{
@@ -155,8 +148,6 @@ select:hover{border-color:var(--mid)}
 .card:hover .art,.card:focus-visible .art{border-color:var(--mid); box-shadow:0 0 16px var(--glow)}
 .card:focus-visible{outline:none}
 .art img{width:100%; height:100%; object-fit:contain; display:block}
-.grid.box3d .art{aspect-ratio:5/6}
-.grid.box3d .art img{padding:5px}
 .art .noart{color:var(--dim2); font-size:10px; letter-spacing:.14em; text-transform:uppercase}
 .badge{
   position:absolute; top:0; right:0; z-index:2; background:var(--bg); color:var(--text);

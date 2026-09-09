@@ -10,7 +10,7 @@ community ratings, descriptions and release metadata.
 
 - **Game of the month** — a featured pick above the grid, drawn from the 200 most-played games
   in the library according to RetroAchievements
-- Grid of every game, switchable between **flat box art** and **3D boxes**
+- Grid of every game
 - Sort A–Z, by rating, by release year, or by file size
 - Filter by system (multi-select) and genre; free-text search across titles,
   developers, publishers and series
