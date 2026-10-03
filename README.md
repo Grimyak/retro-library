@@ -1,6 +1,6 @@
 # Grimy's Retro Library
 
-A static, browsable catalogue of a personal retro game collection — **1,698 games across 17
+A static, browsable catalogue of a personal retro game collection — **1,707 games across 17
 systems**, with box art, 3D boxes, cartridge and disc scans, screenshots, title screens, logos,
 community ratings, descriptions and release metadata.
 
@@ -91,7 +91,7 @@ key is needed.
 | `/mnt/games/Roms/<system>/` | on-disk file sizes, and the `<family>` series field salvaged from the older gamelists |
 
 Media is matched to games by ROM basename and resolves at **100% across all six artwork types** —
-every one of the 1,698 games has a cover, 3D box, screenshot, title screen, disc scan and logo.
+every one of the 1,707 games has a cover, 3D box, screenshot, title screen, disc scan and logo.
 
 Gamelists keep rows for files that no longer exist — discs folded into a folder-layout game, or
 deleted playlists. ES-DE skips those at load and so does the build, which reports the count.
@@ -188,7 +188,7 @@ Quirks the build handles, in case you hit them on your own library:
 - ScreenScraper writes titles as `Zelda : Link's Awakening` and `Batman & Robin, The` — both are
   normalised, and region/language/dump tags are stripped from display titles but kept as metadata.
 - The current ES-DE scrape dropped the `<family>` field, so series names are salvaged from the
-  older gamelists still sitting next to the ROMs (1,009 of them).
+  older gamelists still sitting next to the ROMs (1,005 of them).
 - `build_site.py` verifies every image path before emitting it, so a failed conversion degrades
   to a placeholder rather than a 404. It also prunes generated artwork nothing references any more
   — per-disc images left behind by the multi-disc conversion, or games removed from the library.
@@ -197,7 +197,15 @@ Quirks the build handles, in case you hit them on your own library:
   it names a game far more often than it means ten (Mega Man X, Ranger X, F-Zero X, Dracula X;
   only Final Fantasy X is a numeral).
 - Region is omitted rather than shown as "Unknown" when the filename carries no region tag, which
-  is the case for all of Neo Geo (MAME short names), Dreamcast and GameCube — 202 games.
+  is the case for all of Neo Geo (MAME short names) and two fan translations — 140 games.
+- **Renaming ROMs orphans their scrape.** Gamelist rows and artwork are keyed by filename, so when
+  Dreamcast and GameCube were moved to Redump names (`Crazy Taxi.chd` → `Crazy Taxi (USA).chd`)
+  every one of them read as a stale row, and a rebuild would have dropped both systems. Re-scrape
+  in ES-DE after any rename. `scripts/great_games.json` is keyed the same way (`system/filename`),
+  so its ids need updating too — `build_site.py` reports how many of the 200 it matched.
+- A few ScreenScraper PNGs have a corrupt checksum on an optional chunk (an `iCCP` colour
+  profile), which Pillow treats as fatal. `build_images.py` retries those with every ancillary
+  chunk except transparency stripped, which recovers the picture.
 - Scrapers occasionally give two different games the same name (Tara's Adventure identified as
   Cobi's Journey, R.C. Pro-Am II as R.C. Pro-Am, King of Demons as King of Dragons). Where two
   games in one system would collide, the title falls back to the filename, which is a correct

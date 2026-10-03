@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Resize the ES-DE artwork into web-sized WebP under docs/img/<kind>/<system>/."""
-import json, os, re, unicodedata
+import io, json, os, re, struct, unicodedata
 from concurrent.futures import ProcessPoolExecutor
 from PIL import Image
 
@@ -17,6 +17,23 @@ def slug(s):
     s = re.sub(r"[^\w\s-]", "", s).strip().lower()
     return re.sub(r"[\s_-]+", "-", s)[:80] or "x"
 
+def open_image(src):
+    # A few ScreenScraper PNGs have a bad checksum on an ancillary chunk (an
+    # iCCP colour profile), which Pillow treats as fatal for the whole file.
+    # Ancillary chunks are optional by definition, so retry with all of them
+    # dropped except tRNS, which carries the transparency.
+    try:
+        return Image.open(src)
+    except Image.UnidentifiedImageError:
+        raw = open(src, "rb").read()
+        if raw[:8] != b"\x89PNG\r\n\x1a\n": raise
+        out, pos = [raw[:8]], 8
+        while pos + 8 <= len(raw):
+            n, kind = struct.unpack(">I4s", raw[pos:pos + 8])
+            if kind[:1].isupper() or kind == b"tRNS": out.append(raw[pos:pos + n + 12])
+            pos += n + 12
+        return Image.open(io.BytesIO(b"".join(out)))
+
 def convert(args):
     src, dst, width, quality = args
     # Resumable, but only while the source has not changed underneath us. A
@@ -26,7 +43,7 @@ def convert(args):
             and os.path.getmtime(dst) >= os.path.getmtime(src)):
         return dst, os.path.getsize(dst), None
     try:
-        with Image.open(src) as im:
+        with open_image(src) as im:
             im.load()
             if im.mode in ("RGBA", "LA", "P"):
                 im = im.convert("RGBA")
